@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class MenadzerService {
@@ -58,5 +59,10 @@ public class MenadzerService {
             return null;
         menadzer.setZaduzenRestoran(restoran);
         return menadzerRepository.save(menadzer);
+    }
+
+    public Menadzer findOne(String id){
+        Optional<Menadzer> foundEmployee = menadzerRepository.findById(id);
+        return foundEmployee.orElse(null);
     }
 }

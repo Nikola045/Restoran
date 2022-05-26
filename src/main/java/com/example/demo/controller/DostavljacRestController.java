@@ -1,10 +1,9 @@
 package com.example.demo.controller;
 
+import com.example.demo.dto.DostavljacDto;
+import com.example.demo.dto.KupacDto;
 import com.example.demo.dto.LogInDto;
-import com.example.demo.entity.Admin;
-import com.example.demo.entity.Dostavljac;
-import com.example.demo.entity.Porudzbina;
-import com.example.demo.entity.Status;
+import com.example.demo.entity.*;
 import com.example.demo.service.DostavljacService;
 import com.example.demo.service.PorudzbinaService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,6 +50,21 @@ public class DostavljacRestController {
 
         session.invalidate();
         return new ResponseEntity("Dostavljac je uspesno odjavljen iz sistema!",HttpStatus.OK);
+    }
+
+    @GetMapping("/api/dostavljac/profil")
+    public ResponseEntity<DostavljacDto> getDostavljac(HttpSession session){
+        Dostavljac logovaniDostavljac= (Dostavljac) session.getAttribute("dostavljac");
+
+
+        if(logovaniDostavljac==null)
+        {
+            return new ResponseEntity("Niste ulogovani!",HttpStatus.FORBIDDEN);
+        }
+
+        Dostavljac dostavljac = dostavljacService.findOne(logovaniDostavljac.getUsername());
+        DostavljacDto dto = new DostavljacDto(dostavljac);
+        return ResponseEntity.ok(dto);
     }
 
 }

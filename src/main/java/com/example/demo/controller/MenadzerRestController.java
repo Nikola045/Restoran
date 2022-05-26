@@ -1,7 +1,9 @@
 package com.example.demo.controller;
 
 import com.example.demo.dto.ArtikalDto;
+import com.example.demo.dto.DostavljacDto;
 import com.example.demo.dto.LogInDto;
+import com.example.demo.dto.MenadzerDto;
 import com.example.demo.entity.*;
 import com.example.demo.repository.ArtikalRepository;
 import com.example.demo.repository.MenadzerRepository;
@@ -81,6 +83,22 @@ public class MenadzerRestController {
         Set<Porudzbina> porudzbine = porudzbinaService.porudzbineRestorana(menadzer);
         return ResponseEntity.ok(porudzbine);
     }
+
+    @GetMapping("/api/menadzer/profil")
+    public ResponseEntity<MenadzerDto> getMenadzer(HttpSession session){
+        Menadzer logovaniMenadzer= (Menadzer) session.getAttribute("menadzer");
+
+
+        if(logovaniMenadzer==null)
+        {
+            return new ResponseEntity("Niste ulogovani!",HttpStatus.FORBIDDEN);
+        }
+
+        Menadzer menadzer = menadzerService.findOne(logovaniMenadzer.getUsername());
+        MenadzerDto dto = new MenadzerDto(menadzer);
+        return ResponseEntity.ok(dto);
+    }
+
 //ne radi
     @PostMapping("/api/menadzer/DodajArtikal")
     public ResponseEntity dodajArtikal(@RequestParam ArtikalDto artikalDto, HttpSession session)
