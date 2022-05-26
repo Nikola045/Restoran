@@ -67,11 +67,12 @@ public class DatabaseConfiguration
         Menadzer menadzer1 = new Menadzer("Menazder1","123","Imenko","Prezimenic","Z",datum1,Uloga.MENADZER,restoranRepository.getByNaziv("Kod Riste"));
         menadzerRepository.save(menadzer1);
         Menadzer menadzer2 = new Menadzer("Menazder2","123","Bobi","Bobic","Z",datum1,Uloga.MENADZER);
-        Lokacija lokacija1 = new Lokacija(1L,"Bogu iza nogu",23,14);
+        Lokacija lokacija1 = new Lokacija(1L,"BoguIzaNogu",23,14);
+        lokacijaRepository.save(lokacija1);
         Porudzbina porudzbina1 = new Porudzbina(1L,datum1,23, Status.OBRADA);
         Porudzbina porudzbina2 = new Porudzbina(2L,datum1,50, Status.CEKA_DOSTAVLJACA);
         Restoran restoran1 = new Restoran(1L,"KodRiste","Narodni");
-
+        restoranRepository.save(restoran1);
         TipKupac zlatni = new TipKupac(1L,VrstaPotrosaca.ZLATNI,20,10);
 
         artikal1.setPorudzbina(porudzbina1);
@@ -103,6 +104,7 @@ public class DatabaseConfiguration
 
         restoran1.setMenadzer(menadzer1);
         restoranRepository.save(restoran1);
+
 
 
 

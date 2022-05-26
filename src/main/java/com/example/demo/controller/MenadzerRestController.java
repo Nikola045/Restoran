@@ -3,18 +3,18 @@ package com.example.demo.controller;
 import com.example.demo.dto.ArtikalDto;
 import com.example.demo.dto.LogInDto;
 import com.example.demo.entity.*;
+import com.example.demo.repository.ArtikalRepository;
+import com.example.demo.repository.MenadzerRepository;
 import com.example.demo.service.ArtikalService;
 import com.example.demo.service.MenadzerService;
 import com.example.demo.service.PorudzbinaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
+import java.util.HashMap;
 import java.util.Set;
 
 @RestController
@@ -28,6 +28,12 @@ public class MenadzerRestController {
 
     @Autowired
     private PorudzbinaService porudzbinaService;
+
+    @Autowired
+    private MenadzerRepository menadzerRepository;
+
+    @Autowired
+    private ArtikalRepository artikalRepository;
 
     @PostMapping("/api/menadzer/prijava")
     public ResponseEntity<String> login(@RequestBody LogInDto loginDto, HttpSession session)
@@ -77,7 +83,7 @@ public class MenadzerRestController {
     }
 //ne radi
     @PostMapping("/api/menadzer/DodajArtikal")
-    public ResponseEntity dodajArtikal(@RequestBody ArtikalDto artikalDto, HttpSession session)
+    public ResponseEntity dodajArtikal(@RequestParam ArtikalDto artikalDto, HttpSession session)
     {
         Menadzer logovaniMenadzer = (Menadzer) session.getAttribute("menadzer");
         Restoran restoran = (Restoran) session.getAttribute("restoran");
@@ -91,7 +97,9 @@ public class MenadzerRestController {
 
         Artikal noviArtikal= artikalService.napraviArtikal(artikalDto.getNazivArtikla(),artikalDto.getCena(),artikalDto.getTipArtikla());
 
+        artikalRepository.save(noviArtikal);
 
-        return new ResponseEntity("Artikal je usepsno dodat!",HttpStatus.OK);
+        return ResponseEntity.ok(noviArtikal);
     }
+
 }

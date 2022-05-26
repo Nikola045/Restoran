@@ -45,6 +45,13 @@ public class KupacDto {
         this.uloga = kupac.getUloga();
     }
 
+    public KupacDto(String username, String password, String ime, String prezime) {
+        this.username = username;
+        this.password = password;
+        this.ime = ime;
+        this.prezime = prezime;
+    }
+
 
     public String getUsername() {
         return username;

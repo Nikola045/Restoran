@@ -135,23 +135,32 @@ public class KupacRestController {
         return ResponseEntity.ok(dto);
     }
 //ne radi
-    @PostMapping("/api/kupac/izmeniPodatke")
-    public ResponseEntity<Kupac> izmeniKupca(@RequestParam String username,@RequestParam String password,@RequestParam String ime,@RequestParam String prezime, HttpSession session)
+@PostMapping("/api/kupac/izmeni")
+public ResponseEntity<Kupac> setKupac(HttpSession session, @RequestBody KupacDto kupacDto) {
+
+    Kupac logovaniKupac = (Kupac) session.getAttribute("kupac");
+
+
+    if(logovaniKupac==null)
     {
-        Kupac logovaniKupac = (Kupac) session.getAttribute("kupac");
-
-        if(logovaniKupac==null)
-        {
-            return new ResponseEntity("Niste ulogovani!",HttpStatus.FORBIDDEN);
-        }
-
-        logovaniKupac.setPrezime(prezime);
-        logovaniKupac.setPassword(password);
-        logovaniKupac.setUsername(username);
-        logovaniKupac.setIme(ime);
-
-        return ResponseEntity.ok(logovaniKupac);
+        return new ResponseEntity("Niste ulogovani!",HttpStatus.FORBIDDEN);
     }
+
+
+
+    logovaniKupac.setUsername(kupacDto.getUsername() == null ? logovaniKupac.getUsername() : kupacDto.getUsername());
+    logovaniKupac.setPassword(kupacDto.getPassword() == null ? logovaniKupac.getPassword() : kupacDto.getPassword());
+    logovaniKupac.setIme(kupacDto.getIme() == null ? logovaniKupac.getIme() : kupacDto.getIme());
+    logovaniKupac.setPrezime(kupacDto.getPrezime() == null ? logovaniKupac.getPrezime() : kupacDto.getPrezime());
+
+    try {
+        System.out.println("Uspesna izmena.");
+    } catch (Exception e) {
+        System.out.println("Neuspesna izmena.");
+    }
+
+    return ResponseEntity.ok(logovaniKupac);
+}
 
 
 
