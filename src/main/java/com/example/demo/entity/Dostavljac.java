@@ -10,7 +10,7 @@ import java.util.Set;
 @Entity
 public class Dostavljac extends Korisnik{
 
-    @OneToMany(mappedBy = "dostavljac", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "dostavljac", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Set<Porudzbina> porudzbine = new HashSet<>();
 
     public Dostavljac(String username, String password, String ime, String prezime, String pol, Date datumRodjenja, Uloga uloga) {

@@ -1,9 +1,6 @@
 package com.example.demo.controller;
 
-import com.example.demo.dto.ArtikalDto;
-import com.example.demo.dto.DostavljacDto;
-import com.example.demo.dto.LogInDto;
-import com.example.demo.dto.MenadzerDto;
+import com.example.demo.dto.*;
 import com.example.demo.entity.*;
 import com.example.demo.repository.ArtikalRepository;
 import com.example.demo.repository.MenadzerRepository;
@@ -60,9 +57,9 @@ public class MenadzerRestController {
     @PostMapping("/api/menadzer/odjavi")
     public ResponseEntity logout(HttpSession session)
     {
-        Kupac logovaniKupac = (Kupac) session.getAttribute("menadzer");
+        Menadzer logovanimenadzer = (Menadzer) session.getAttribute("menadzer");
 
-        if(logovaniKupac == null)
+        if(logovanimenadzer == null)
         {
             return new ResponseEntity("Menadzer nije logovan!",HttpStatus.FORBIDDEN);
         }
@@ -112,6 +109,30 @@ public class MenadzerRestController {
         menadzerService.obrisiArtikal(artikalId,loggedMenadzer);
         return ResponseEntity.ok("Artikal obrisan");
 
+    }
+
+    @PostMapping("/api/menadzer/izmeni")
+    public ResponseEntity<Menadzer> setMenadzer(HttpSession session, @RequestBody MenadzerDto menadzerDto) {
+
+        Menadzer logovaniMenadzer = (Menadzer) session.getAttribute("menadzer");
+
+        if(logovaniMenadzer==null)
+        {
+            return new ResponseEntity("Niste ulogovani!",HttpStatus.FORBIDDEN);
+        }
+
+        logovaniMenadzer.setUsername(menadzerDto.getUsername() == null ? logovaniMenadzer.getUsername() : menadzerDto.getUsername());
+        logovaniMenadzer.setPassword(menadzerDto.getPassword() == null ? logovaniMenadzer.getPassword() : menadzerDto.getPassword());
+        logovaniMenadzer.setIme(menadzerDto.getIme() == null ? logovaniMenadzer.getIme() : menadzerDto.getIme());
+        logovaniMenadzer.setPrezime(menadzerDto.getPrezime() == null ? logovaniMenadzer.getPrezime() : menadzerDto.getPrezime());
+
+        try {
+            System.out.println("Uspesna izmena.");
+        } catch (Exception e) {
+            System.out.println("Neuspesna izmena.");
+        }
+
+        return ResponseEntity.ok(logovaniMenadzer);
     }
 
 //ne radi

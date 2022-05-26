@@ -93,7 +93,6 @@ public class DatabaseConfiguration
         artikli.add(artikal2);
 
         restoran1.setArtikli(artikli);
-        restoranRepository.save(restoran1);
 
 
         Set<Porudzbina> porudzbine = new HashSet<>();

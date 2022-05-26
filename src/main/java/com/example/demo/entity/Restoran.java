@@ -24,10 +24,10 @@ public class Restoran {
     @JsonIgnore
     private Porudzbina porudzbina;
 
-    @OneToMany(mappedBy = "restoran", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "restoran", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Set<Komentar> komentari = new HashSet<>();
 
-    @OneToMany(mappedBy = "restoran",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "restoran",fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JsonIgnore
     private Set<Artikal> artikli = new HashSet<>();
 

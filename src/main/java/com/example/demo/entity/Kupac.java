@@ -16,7 +16,7 @@ public class Kupac extends Korisnik{
     @Column
     private int brojSkupljenihBodova;
 
-    @OneToMany(mappedBy = "kupac",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "kupac",fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Set<Porudzbina> porudzbine = new HashSet<>();
 
     @ManyToOne
@@ -24,7 +24,7 @@ public class Kupac extends Korisnik{
 
 
 
-    @OneToMany(mappedBy = "kupac",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "kupac",fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Set<Komentar> komentari = new HashSet<>();
 
     public Kupac(String username, String password, String ime, String prezime, String pol, Date datumRodjenja, Uloga uloga, int brojSkupljenihBodova ) {

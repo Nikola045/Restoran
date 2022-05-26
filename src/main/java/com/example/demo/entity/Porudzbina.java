@@ -30,7 +30,7 @@ public class Porudzbina {
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Dostavljac dostavljac;
 
-    @OneToMany(mappedBy = "porudzbina", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "porudzbina", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Artikal> poruceniArtikli = new HashSet<>();
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)

@@ -3,6 +3,7 @@ package com.example.demo.controller;
 import com.example.demo.dto.DostavljacDto;
 import com.example.demo.dto.KupacDto;
 import com.example.demo.dto.LogInDto;
+import com.example.demo.dto.DostavljacDto;
 import com.example.demo.entity.*;
 import com.example.demo.service.DostavljacService;
 import com.example.demo.service.PorudzbinaService;
@@ -65,6 +66,30 @@ public class DostavljacRestController {
         Dostavljac dostavljac = dostavljacService.findOne(logovaniDostavljac.getUsername());
         DostavljacDto dto = new DostavljacDto(dostavljac);
         return ResponseEntity.ok(dto);
+    }
+
+    @PostMapping("/api/dostavljac/izmeni")
+    public ResponseEntity<Dostavljac> setDostavljac(HttpSession session, @RequestBody DostavljacDto dostavljacDto) {
+
+        Dostavljac logovaniDostavljac = (Dostavljac) session.getAttribute("dostavljac");
+
+        if(logovaniDostavljac==null)
+        {
+            return new ResponseEntity("Niste ulogovani!",HttpStatus.FORBIDDEN);
+        }
+
+        logovaniDostavljac.setUsername(dostavljacDto.getUsername() == null ? logovaniDostavljac.getUsername() : dostavljacDto.getUsername());
+        logovaniDostavljac.setPassword(dostavljacDto.getPassword() == null ? logovaniDostavljac.getPassword() : dostavljacDto.getPassword());
+        logovaniDostavljac.setIme(dostavljacDto.getIme() == null ? logovaniDostavljac.getIme() : dostavljacDto.getIme());
+        logovaniDostavljac.setPrezime(dostavljacDto.getPrezime() == null ? logovaniDostavljac.getPrezime() : dostavljacDto.getPrezime());
+
+        try {
+            System.out.println("Uspesna izmena.");
+        } catch (Exception e) {
+            System.out.println("Neuspesna izmena.");
+        }
+
+        return ResponseEntity.ok(logovaniDostavljac);
     }
 
 }
