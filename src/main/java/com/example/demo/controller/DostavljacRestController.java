@@ -38,7 +38,7 @@ public class DostavljacRestController {
         session.setAttribute("dostavljac", loggedDostavljac);
         return ResponseEntity.ok("Dostavljac je uspesno prijavljen");
     }
-
+//ne radi
     @GetMapping("/api/dostavljac/PregledZaduzenihPorudzbina")
     public ResponseEntity<Set<Porudzbina>> pregledPorudzbina(HttpSession session)
     {
@@ -56,6 +56,7 @@ public class DostavljacRestController {
         return ResponseEntity.ok(porudzbine);
     }
 
+    //ne radi
     @GetMapping("/api/dostavljac/PregledSlobodnihPorudzbina")
     public ResponseEntity<Set<Porudzbina>> pregledPorudzbinaSlobodne(HttpSession session)
     {

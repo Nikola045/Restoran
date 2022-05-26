@@ -1,11 +1,14 @@
 package com.example.demo.dto;
 
 import com.example.demo.entity.Kupac;
+import com.example.demo.entity.Porudzbina;
 import com.example.demo.entity.Uloga;
 
 import javax.persistence.Column;
 import javax.persistence.Id;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 public class KupacDto {
     protected String username;
@@ -15,8 +18,9 @@ public class KupacDto {
     protected String pol;
     protected Date datumRodjenja = new Date();
     protected Uloga uloga;
+    private Set<Porudzbina> porudzbine = new HashSet<>();
 
-    public KupacDto(String username, String password, String ime, String prezime, String pol, Date datumRodjenja, Uloga uloga) {
+    public KupacDto(String username, String password, String ime, String prezime, String pol, Date datumRodjenja, Uloga uloga,Set<Porudzbina> porudzbine) {
         this.username = username;
         this.password = password;
         this.ime = ime;
@@ -24,6 +28,7 @@ public class KupacDto {
         this.pol = pol;
         this.datumRodjenja = datumRodjenja;
         this.uloga = uloga;
+        this.porudzbine = porudzbine;
     }
 
     public KupacDto() {

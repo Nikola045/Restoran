@@ -1,10 +1,8 @@
 package com.example.demo.service;
 
-import com.example.demo.entity.Kupac;
-import com.example.demo.entity.Menadzer;
-import com.example.demo.entity.Porudzbina;
-import com.example.demo.entity.Status;
+import com.example.demo.entity.*;
 import com.example.demo.repository.MenadzerRepository;
+import com.example.demo.repository.RestoranRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +13,9 @@ public class MenadzerService {
 
     @Autowired
     private MenadzerRepository menadzerRepository;
+
+    @Autowired
+    private RestoranService restoranService;
 
     public String dodajMenadzera(Menadzer menadzer)
     {
@@ -50,4 +51,12 @@ public class MenadzerService {
         return menadzerRepository.findAll();
     }
 
+    public Menadzer postaviRestoran(String username, Long Id) {
+        Menadzer menadzer = menadzerRepository.getByUsername(username);
+        Restoran restoran= restoranService.findById(Id);
+        if(restoran == null)
+            return null;
+        menadzer.setZaduzenRestoran(restoran);
+        return menadzerRepository.save(menadzer);
+    }
 }

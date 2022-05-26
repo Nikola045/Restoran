@@ -17,4 +17,13 @@ public class ArtikalService {
         artikal = artikalRepository.getById(id);
         return artikal;
     }
+
+    public Artikal napraviArtikal(String naziv,int cena, String tipArtikla)
+    {
+        Artikal artikal = new Artikal();
+        artikal.setNazivArtikla(naziv);
+        artikal.setCena(cena);
+        artikal.setTipArtikla(tipArtikla);
+        return artikal;
+    }
 }

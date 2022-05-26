@@ -44,12 +44,6 @@ public class KupacService {
     }
 
 
-    public Kupac promeniIme(String ime, String ime1) {
-        Kupac kupac = new Kupac();
-        kupac.setIme(ime1);
-        return kupac;
-    }
-
     public List<Kupac> findAll(){
         return kupacRepository.findAll();
     }

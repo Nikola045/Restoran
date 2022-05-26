@@ -1,9 +1,9 @@
 package com.example.demo.controller;
 
+import com.example.demo.dto.ArtikalDto;
 import com.example.demo.dto.LogInDto;
-import com.example.demo.entity.Kupac;
-import com.example.demo.entity.Menadzer;
-import com.example.demo.entity.Porudzbina;
+import com.example.demo.entity.*;
+import com.example.demo.service.ArtikalService;
 import com.example.demo.service.MenadzerService;
 import com.example.demo.service.PorudzbinaService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +22,9 @@ public class MenadzerRestController {
 
     @Autowired
     private MenadzerService menadzerService;
+
+    @Autowired
+    private ArtikalService artikalService;
 
     @Autowired
     private PorudzbinaService porudzbinaService;
@@ -58,7 +61,7 @@ public class MenadzerRestController {
         session.invalidate();
         return new ResponseEntity("Menadzer uspesno odjavljen iz sistema!",HttpStatus.OK);
     }
-
+//ne radi
     @GetMapping("/api/menadzer/porudzbine")
     public ResponseEntity<Set<Porudzbina>> pregledPorudzbina(HttpSession session)
     {
@@ -71,5 +74,24 @@ public class MenadzerRestController {
 
         Set<Porudzbina> porudzbine = porudzbinaService.porudzbineRestorana(menadzer);
         return ResponseEntity.ok(porudzbine);
+    }
+//ne radi
+    @PostMapping("/api/menadzer/DodajArtikal")
+    public ResponseEntity dodajArtikal(@RequestBody ArtikalDto artikalDto, HttpSession session)
+    {
+        Menadzer logovaniMenadzer = (Menadzer) session.getAttribute("menadzer");
+        Restoran restoran = (Restoran) session.getAttribute("restoran");
+
+        if(logovaniMenadzer == null) {
+            return new ResponseEntity("Samo menazder moze da obavi ovu radnju!",HttpStatus.FORBIDDEN);
+        }
+        if(logovaniMenadzer != restoran.getMenadzer()) {
+            return new ResponseEntity("Ovaj menadzer nije zaduzen za ovaj restoran!",HttpStatus.FORBIDDEN);
+        }
+
+        Artikal noviArtikal= artikalService.napraviArtikal(artikalDto.getNazivArtikla(),artikalDto.getCena(),artikalDto.getTipArtikla());
+
+
+        return new ResponseEntity("Artikal je usepsno dodat!",HttpStatus.OK);
     }
 }

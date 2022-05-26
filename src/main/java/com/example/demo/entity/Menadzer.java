@@ -14,9 +14,13 @@ public class Menadzer extends Korisnik{
     @JsonIgnore
     private Restoran zaduzenRestoran;
 
+    public Menadzer(String username, String password, String ime, String prezime, String pol, Date datumRodjenja, Uloga uloga, Restoran zaduzenRestoran) {
+        super(username, password, ime, prezime, pol, datumRodjenja, uloga);
+        this.zaduzenRestoran = zaduzenRestoran;
+
+    }
     public Menadzer(String username, String password, String ime, String prezime, String pol, Date datumRodjenja, Uloga uloga) {
         super(username, password, ime, prezime, pol, datumRodjenja, uloga);
-
     }
 
     public Menadzer(String username, String password) {

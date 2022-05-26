@@ -1,6 +1,7 @@
 package com.example.demo.dto;
 
 import com.example.demo.entity.Menadzer;
+import com.example.demo.entity.Restoran;
 import com.example.demo.entity.Uloga;
 
 import java.util.Date;
@@ -15,7 +16,17 @@ public class MenadzerDto {
         protected Date datumRodjenja = new Date();
         protected Uloga uloga;
 
-        public MenadzerDto(String username, String password, String ime, String prezime, String pol, Date datumRodjenja, Uloga uloga) {
+    public Restoran getZaduzenRestoran() {
+        return zaduzenRestoran;
+    }
+
+    public void setZaduzenRestoran(Restoran zaduzenRestoran) {
+        this.zaduzenRestoran = zaduzenRestoran;
+    }
+
+    private Restoran zaduzenRestoran;
+
+        public MenadzerDto(String username, String password, String ime, String prezime, String pol, Date datumRodjenja, Uloga uloga,Restoran zaduzenRestoran) {
             this.username = username;
             this.password = password;
             this.ime = ime;
@@ -23,6 +34,7 @@ public class MenadzerDto {
             this.pol = pol;
             this.datumRodjenja = datumRodjenja;
             this.uloga = uloga;
+            this.zaduzenRestoran = zaduzenRestoran;
         }
 
         public MenadzerDto() {
@@ -37,6 +49,7 @@ public class MenadzerDto {
             this.pol = menadzer.getPol();
             this.datumRodjenja = menadzer.getDatumRodjenja();
             this.uloga = menadzer.getUloga();
+            this.zaduzenRestoran = menadzer.getZaduzenRestoran();
         }
 
 

@@ -1,6 +1,7 @@
 package com.example.demo.controller;
 
 
+import com.example.demo.dto.IzmeniKorisnikDto;
 import com.example.demo.dto.KupacDto;
 import com.example.demo.dto.LogInDto;
 import com.example.demo.entity.Korpa;
@@ -102,7 +103,7 @@ public class KupacRestController {
         return ResponseEntity.ok(korpa);
 
     }
-
+//ne radi
     @PostMapping("/api/kupac/poruci")
     public ResponseEntity<Porudzbina> poruciIzRestorana(@RequestParam String restoranNaziv, HttpSession session)
     {
@@ -133,23 +134,26 @@ public class KupacRestController {
         KupacDto dto = new KupacDto(kupac);
         return ResponseEntity.ok(dto);
     }
-
-    @PutMapping("/api/kupac/izmeniIme{ime}")
-    public ResponseEntity<KupacDto> promeniIme(@PathVariable String Ime, HttpSession session) {
+//ne radi
+    @PostMapping("/api/kupac/izmeniPodatke")
+    public ResponseEntity<Kupac> izmeniKupca(@RequestParam String username,@RequestParam String password,@RequestParam String ime,@RequestParam String prezime, HttpSession session)
+    {
         Kupac logovaniKupac = (Kupac) session.getAttribute("kupac");
-
 
         if(logovaniKupac==null)
         {
             return new ResponseEntity("Niste ulogovani!",HttpStatus.FORBIDDEN);
         }
 
-        Kupac updatedKupac = kupacService.promeniIme(logovaniKupac.getIme(), Ime);
-        if(updatedKupac == null)
-            return ResponseEntity.notFound().build();
-        return ResponseEntity.ok(new KupacDto(updatedKupac));
+        logovaniKupac.setPrezime(prezime);
+        logovaniKupac.setPassword(password);
+        logovaniKupac.setUsername(username);
+        logovaniKupac.setIme(ime);
 
+        return ResponseEntity.ok(logovaniKupac);
     }
+
+
 
 
 

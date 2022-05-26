@@ -12,7 +12,6 @@ import java.util.Set;
 public class Artikal {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String idArtikal;
     @Column
     private String nazivArtikla;

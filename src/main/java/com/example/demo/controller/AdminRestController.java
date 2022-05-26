@@ -2,10 +2,7 @@ package com.example.demo.controller;
 
 import com.example.demo.dto.*;
 import com.example.demo.entity.*;
-import com.example.demo.service.AdminService;
-import com.example.demo.service.DostavljacService;
-import com.example.demo.service.KupacService;
-import com.example.demo.service.MenadzerService;
+import com.example.demo.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,6 +24,9 @@ public class AdminRestController {
 
     @Autowired
     DostavljacService dostavljacService;
+
+    @Autowired
+    RestoranService restoranService;
 
     @Autowired
     KupacService kupacService;
@@ -75,6 +75,35 @@ public class AdminRestController {
         dostavljacService.dodajDostavljaca(dostavljac);
 
         return new ResponseEntity("Dostavljac je usepsno dodat!",HttpStatus.OK);
+    }
+    @PostMapping("/api/admin/DodajRestoran")
+    public ResponseEntity dodajR(@RequestBody Restoran restoran, HttpSession session)
+    {
+        Admin logovaniAdmin = (Admin) session.getAttribute("admin");
+
+        if(logovaniAdmin == null) {
+            return new ResponseEntity("Samo admin moze da obavi ovu radnju!",HttpStatus.FORBIDDEN);
+        }
+
+        restoranService.dodajRestoran(restoran);
+
+        return new ResponseEntity("Restoran je uspesno dodat!",HttpStatus.OK);
+    }
+
+    @PutMapping("/api/admin/zaduziRestoran/{id}")
+    public ResponseEntity<MenadzerDto> addRestoran(@PathVariable Long id, HttpSession session) {
+        Menadzer loggedMenadzer = (Menadzer) session.getAttribute("menadzer");
+        if(loggedMenadzer == null) {
+            System.out.println("Nema sesije");
+            return ResponseEntity.notFound().build();
+        } else {
+            System.out.println(loggedMenadzer);
+        }
+        Menadzer updatedMenadzer = menadzerService.postaviRestoran(loggedMenadzer.getUsername(), id);
+        if(updatedMenadzer == null)
+            return ResponseEntity.notFound().build();
+        return ResponseEntity.ok(new MenadzerDto(updatedMenadzer));
+
     }
 
     @GetMapping("/api/admin/pregledKorsinika")

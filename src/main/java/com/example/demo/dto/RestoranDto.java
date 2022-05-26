@@ -1,66 +1,43 @@
-package com.example.demo.entity;
+package com.example.demo.dto;
+
+import com.example.demo.entity.*;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
 import java.util.HashSet;
 import java.util.Set;
 
-@JsonIgnoreProperties(value = {"hibernateLazyInitializer","handler"})
-@Entity
-public class Restoran {
-    @Id
-    private Long id;
-    @Column
+public class RestoranDto {
+
     private String naziv;
-    @Column
     private String tipRestorana;
-
-    @OneToOne
     private Menadzer menadzer;
-
-    @OneToOne(mappedBy = "restoranPoruceno")
-    @JsonIgnore
     private Porudzbina porudzbina;
-
-    @OneToMany(mappedBy = "restoran", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private Set<Komentar> komentari = new HashSet<>();
-
-    @OneToMany(mappedBy = "restoran",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JsonIgnore
     private Set<Artikal> artikli = new HashSet<>();
-
-    @OneToOne(mappedBy = "restoran")
     private Lokacija lokacija;
 
-    public Restoran(Long id, String naziv, String tipRestorana) {
-        this.id = id;
+    public RestoranDto(String naziv, String tipRestorana, Menadzer menadzer, Porudzbina porudzbina, Set<Artikal> artikli, Lokacija lokacija) {
         this.naziv = naziv;
         this.tipRestorana = tipRestorana;
-    }
-
-    public Restoran(String naziv, String tipRestorana, Lokacija lokacija) {
-        this.naziv = naziv;
-        this.tipRestorana = tipRestorana;
+        this.menadzer = menadzer;
+        this.porudzbina = porudzbina;
+        this.artikli = artikli;
         this.lokacija = lokacija;
     }
 
-    public Restoran() {
+    public RestoranDto() {
 
     }
 
-    public Restoran(Restoran odabrani) {
-        this.naziv = odabrani.getNaziv();
+    public RestoranDto(Restoran restoran) {
+        this.naziv = restoran.getNaziv();
+        this.tipRestorana = restoran.getTipRestorana();
+        this.menadzer = restoran.getMenadzer();
+        this.porudzbina = restoran.getPorudzbina();
+        this.artikli = restoran.getArtikli();
+        this.lokacija = restoran.getLokacija();
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public String getNaziv() {
         return naziv;
@@ -109,12 +86,5 @@ public class Restoran {
     public void setLokacija(Lokacija lokacija) {
         this.lokacija = lokacija;
     }
-
-    public Set<Komentar> getKomentari() {
-        return komentari;
-    }
-
-    public void setKomentari(Set<Komentar> komentari) {
-        this.komentari = komentari;
-    }
 }
+
