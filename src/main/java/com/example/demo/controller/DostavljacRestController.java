@@ -38,41 +38,6 @@ public class DostavljacRestController {
         session.setAttribute("dostavljac", loggedDostavljac);
         return ResponseEntity.ok("Dostavljac je uspesno prijavljen");
     }
-//ne radi
-    @GetMapping("/api/dostavljac/PregledZaduzenihPorudzbina")
-    public ResponseEntity<Set<Porudzbina>> pregledPorudzbina(HttpSession session)
-    {
-        Dostavljac logovaniDostavljac = (Dostavljac) session.getAttribute("dostavljac");
-
-        String username = logovaniDostavljac.getUsername();
-
-        if(logovaniDostavljac==null)
-        {
-            return new ResponseEntity("Niste ulogovani!",HttpStatus.FORBIDDEN);
-        }
-
-        Set<Porudzbina> porudzbine = dostavljacService.pregledajPorudzbineZaduzen(username);
-
-        return ResponseEntity.ok(porudzbine);
-    }
-
-    //ne radi
-    @GetMapping("/api/dostavljac/PregledSlobodnihPorudzbina")
-    public ResponseEntity<Set<Porudzbina>> pregledPorudzbinaSlobodne(HttpSession session)
-    {
-        Dostavljac logovaniDostavljac = (Dostavljac) session.getAttribute("dostavljac");
-
-        String username = logovaniDostavljac.getUsername();
-
-        if(logovaniDostavljac==null)
-        {
-            return new ResponseEntity("Niste ulogovani!",HttpStatus.FORBIDDEN);
-        }
-
-        Set<Porudzbina> porudzbine = porudzbinaService.pregledajPorudzbineSlobodne(Status.CEKA_DOSTAVLJACA);
-
-        return ResponseEntity.ok(porudzbine);
-    }
 
     @PostMapping("/api/dostavljac/odjavi")
     public ResponseEntity logout(HttpSession session)
@@ -87,4 +52,5 @@ public class DostavljacRestController {
         session.invalidate();
         return new ResponseEntity("Dostavljac je uspesno odjavljen iz sistema!",HttpStatus.OK);
     }
+
 }
