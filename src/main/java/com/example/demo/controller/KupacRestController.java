@@ -87,7 +87,6 @@ public class KupacRestController {
 
         Kupac logovaniKupac = (Kupac) session.getAttribute("kupac");
 
-
         if(logovaniKupac==null)
         {
             return new ResponseEntity("Niste ulogovani!",HttpStatus.FORBIDDEN);

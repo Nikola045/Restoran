@@ -1,6 +1,7 @@
 package com.example.demo.service;
 
 import com.example.demo.entity.*;
+import com.example.demo.repository.ArtikalRepository;
 import com.example.demo.repository.MenadzerRepository;
 import com.example.demo.repository.RestoranRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,12 +9,16 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @Service
 public class MenadzerService {
 
     @Autowired
     private MenadzerRepository menadzerRepository;
+
+    @Autowired
+    private ArtikalRepository artikalRepository;
 
     @Autowired
     private RestoranService restoranService;
@@ -64,5 +69,15 @@ public class MenadzerService {
     public Menadzer findOne(String id){
         Optional<Menadzer> foundEmployee = menadzerRepository.findById(id);
         return foundEmployee.orElse(null);
+    }
+
+    public void obrisiArtikal(String id,Menadzer menadzer){
+        Set<Artikal> artikli =  menadzer.getZaduzenRestoran().getArtikli();
+        for(Artikal artikal : artikli){
+            if(artikal.getIdArtikal().equals(id)){
+                menadzer.getZaduzenRestoran().getArtikli().remove(artikal);
+                artikalRepository.delete(artikal);
+            }
+        }
     }
 }

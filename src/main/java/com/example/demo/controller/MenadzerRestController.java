@@ -56,6 +56,7 @@ public class MenadzerRestController {
         return ResponseEntity.ok("Uspesno ulogovan menadzer!");
     }
 
+
     @PostMapping("/api/menadzer/odjavi")
     public ResponseEntity logout(HttpSession session)
     {
@@ -68,20 +69,6 @@ public class MenadzerRestController {
 
         session.invalidate();
         return new ResponseEntity("Menadzer uspesno odjavljen iz sistema!",HttpStatus.OK);
-    }
-//ne radi
-    @GetMapping("/api/menadzer/porudzbine")
-    public ResponseEntity<Set<Porudzbina>> pregledPorudzbina(HttpSession session)
-    {
-        Menadzer menadzer = (Menadzer) session.getAttribute("menadzer");
-
-        if(menadzer==null)
-        {
-            return new ResponseEntity("Menadzer nije prijavljen!",HttpStatus.FORBIDDEN);
-        }
-
-        Set<Porudzbina> porudzbine = porudzbinaService.porudzbineRestorana(menadzer);
-        return ResponseEntity.ok(porudzbine);
     }
 
     @GetMapping("/api/menadzer/profil")
@@ -97,6 +84,34 @@ public class MenadzerRestController {
         Menadzer menadzer = menadzerService.findOne(logovaniMenadzer.getUsername());
         MenadzerDto dto = new MenadzerDto(menadzer);
         return ResponseEntity.ok(dto);
+    }
+
+//ne radi
+    @GetMapping("/api/menadzer/porudzbine")
+    public ResponseEntity<Set<Porudzbina>> pregledPorudzbina(HttpSession session)
+    {
+        Menadzer menadzer = (Menadzer) session.getAttribute("menadzer");
+
+        if(menadzer==null)
+        {
+            return new ResponseEntity("Menadzer nije prijavljen!",HttpStatus.FORBIDDEN);
+        }
+
+        Set<Porudzbina> porudzbine = porudzbinaService.porudzbineRestorana(menadzer);
+        return ResponseEntity.ok(porudzbine);
+    }
+
+
+    //ne znam da li radi
+    @DeleteMapping("/api/menadzer/brisanjeArtikla")
+    public ResponseEntity<String> obrisiArtikal(@RequestParam String artikalId,HttpSession session){
+        Menadzer loggedMenadzer = (Menadzer) session.getAttribute("menadzer");
+        if(loggedMenadzer == null){
+            return new ResponseEntity<>("Nema ulogovanih menadzera, nije moguce izbrisati artikal",HttpStatus.METHOD_NOT_ALLOWED);
+        }
+        menadzerService.obrisiArtikal(artikalId,loggedMenadzer);
+        return ResponseEntity.ok("Artikal obrisan");
+
     }
 
 //ne radi

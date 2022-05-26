@@ -55,7 +55,7 @@ public class DatabaseConfiguration
         Artikal artikal2 = new Artikal("2L","Mesano",100,"Opa",100);
         artikalRepository.save(artikal2);
 
-        Admin admin1 = new Admin("admin1","nekasifra");
+        Admin admin1 = new Admin("Admin1","123");
         adminRepository.save(admin1);
         Dostavljac dostavjac1 = new Dostavljac("Dostavljac1","123","Aleksandar","Ristic","M",datum1,Uloga.DOSTOVLJAC);
         dostavljacRepository.save(dostavjac1);
