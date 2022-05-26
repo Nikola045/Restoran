@@ -45,6 +45,7 @@ public class KupacDto {
         this.uloga = kupac.getUloga();
     }
 
+    //za izmenu kupca
     public KupacDto(String username, String password, String ime, String prezime) {
         this.username = username;
         this.password = password;
