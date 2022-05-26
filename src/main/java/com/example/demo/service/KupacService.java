@@ -1,13 +1,11 @@
 package com.example.demo.service;
 
-import com.example.demo.entity.Admin;
 import com.example.demo.entity.Kupac;
 import com.example.demo.entity.Porudzbina;
 import com.example.demo.repository.KupacRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -40,5 +38,20 @@ public class KupacService {
         return kupac.getPorudzbine();
     }
 
+    public Kupac findOne(String id){
+        Optional<Kupac> foundEmployee = kupacRepository.findById(id);
+        return foundEmployee.orElse(null);
+    }
+
+
+    public Kupac promeniIme(String ime, String ime1) {
+        Kupac kupac = new Kupac();
+        kupac.setIme(ime1);
+        return kupac;
+    }
+
+    public List<Kupac> findAll(){
+        return kupacRepository.findAll();
+    }
 
 }

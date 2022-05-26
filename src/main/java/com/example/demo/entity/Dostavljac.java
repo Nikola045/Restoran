@@ -17,6 +17,10 @@ public class Dostavljac extends Korisnik{
         super(username, password, ime, prezime, pol, datumRodjenja, uloga);
     }
 
+    public Dostavljac(String username, String password) {
+        super(username, password);
+    }
+
     public Dostavljac() {
 
     }

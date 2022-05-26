@@ -1,5 +1,6 @@
 package com.example.demo.service;
 
+import com.example.demo.entity.Kupac;
 import com.example.demo.entity.Menadzer;
 import com.example.demo.entity.Porudzbina;
 import com.example.demo.entity.Status;
@@ -44,6 +45,9 @@ public class MenadzerService {
         }
 
         return true;
+    }
+    public List<Menadzer> findAll(){
+        return menadzerRepository.findAll();
     }
 
 }

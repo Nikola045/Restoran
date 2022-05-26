@@ -1,26 +1,21 @@
-package com.example.demo.entity;
+package com.example.demo.dto;
 
-import javax.persistence.*;
+import com.example.demo.entity.Dostavljac;
+import com.example.demo.entity.Dostavljac;
+import com.example.demo.entity.Uloga;
+
 import java.util.Date;
 
-@Entity
-public class Korisnik {
-    @Id
+public class DostavljacDto {
     protected String username;
-    @Column
     protected String password;
-    @Column
     protected String ime;
-    @Column
     protected String prezime;
-    @Column
     protected String pol;
-    @Column
     protected Date datumRodjenja = new Date();
-    @Column
     protected Uloga uloga;
 
-    public Korisnik(String username, String password, String ime, String prezime, String pol, Date datumRodjenja, Uloga uloga) {
+    public DostavljacDto(String username, String password, String ime, String prezime, String pol, Date datumRodjenja, Uloga uloga) {
         this.username = username;
         this.password = password;
         this.ime = ime;
@@ -30,14 +25,20 @@ public class Korisnik {
         this.uloga = uloga;
     }
 
-    public Korisnik(String username, String password) {
-        this.username = username;
-        this.password = password;
-    }
-
-    public Korisnik() {
+    public DostavljacDto() {
 
     }
+
+    public DostavljacDto(Dostavljac dostavljac) {
+        this.username = dostavljac.getUsername();
+        this.password = dostavljac.getPassword();
+        this.ime = dostavljac.getIme();
+        this.prezime = dostavljac.getPrezime();
+        this.pol = dostavljac.getPol();
+        this.datumRodjenja = dostavljac.getDatumRodjenja();
+        this.uloga = dostavljac.getUloga();
+    }
+
 
     public String getUsername() {
         return username;
@@ -95,3 +96,4 @@ public class Korisnik {
         this.uloga = uloga;
     }
 }
+

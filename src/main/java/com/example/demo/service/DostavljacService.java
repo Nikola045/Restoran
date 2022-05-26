@@ -2,12 +2,14 @@ package com.example.demo.service;
 
 import com.example.demo.entity.Admin;
 import com.example.demo.entity.Dostavljac;
+import com.example.demo.entity.Kupac;
 import com.example.demo.entity.Porudzbina;
 import com.example.demo.repository.DostavljacRepository;
 import com.example.demo.repository.PorudzbinaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Set;
 
 @Service
@@ -35,6 +37,10 @@ public class DostavljacService {
     {
         dostavljacRepository.save(dostavljac);
         return "Uspesno dodat dostavljac!";
+    }
+
+    public List<Dostavljac> findAll(){
+        return dostavljacRepository.findAll();
     }
 
 }

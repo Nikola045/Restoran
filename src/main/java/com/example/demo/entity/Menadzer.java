@@ -19,6 +19,10 @@ public class Menadzer extends Korisnik{
 
     }
 
+    public Menadzer(String username, String password) {
+        super(username, password);
+    }
+
     public Menadzer() {
 
     }

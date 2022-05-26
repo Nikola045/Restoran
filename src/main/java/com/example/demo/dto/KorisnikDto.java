@@ -1,22 +1,31 @@
 package com.example.demo.dto;
 
+import com.example.demo.entity.Dostavljac;
 import com.example.demo.entity.Kupac;
+import com.example.demo.entity.Menadzer;
 import com.example.demo.entity.Uloga;
 
 import javax.persistence.Column;
 import javax.persistence.Id;
 import java.util.Date;
 
-public class KupacDto {
+public class KorisnikDto {
+
     protected String username;
+
     protected String password;
+
     protected String ime;
+
     protected String prezime;
+
     protected String pol;
+
     protected Date datumRodjenja = new Date();
+
     protected Uloga uloga;
 
-    public KupacDto(String username, String password, String ime, String prezime, String pol, Date datumRodjenja, Uloga uloga) {
+    public KorisnikDto(String username, String password, String ime, String prezime, String pol, Date datumRodjenja, Uloga uloga) {
         this.username = username;
         this.password = password;
         this.ime = ime;
@@ -26,11 +35,25 @@ public class KupacDto {
         this.uloga = uloga;
     }
 
-    public KupacDto() {
+    public KorisnikDto(String username, String password) {
+        this.username = username;
+        this.password = password;
+    }
+
+    public KorisnikDto() {
 
     }
 
-    public KupacDto(Kupac kupac) {
+    public KorisnikDto(Menadzer menadzer) {
+        this.username = menadzer.getUsername();
+        this.password = menadzer.getPassword();
+        this.ime = menadzer.getIme();
+        this.prezime = menadzer.getPrezime();
+        this.pol = menadzer.getPol();
+        this.datumRodjenja = menadzer.getDatumRodjenja();
+        this.uloga = menadzer.getUloga();
+    }
+    public KorisnikDto(Kupac kupac) {
         this.username = kupac.getUsername();
         this.password = kupac.getPassword();
         this.ime = kupac.getIme();
@@ -39,7 +62,15 @@ public class KupacDto {
         this.datumRodjenja = kupac.getDatumRodjenja();
         this.uloga = kupac.getUloga();
     }
-
+    public KorisnikDto(Dostavljac dostavljac) {
+        this.username = dostavljac.getUsername();
+        this.password = dostavljac.getPassword();
+        this.ime = dostavljac.getIme();
+        this.prezime = dostavljac.getPrezime();
+        this.pol = dostavljac.getPol();
+        this.datumRodjenja = dostavljac.getDatumRodjenja();
+        this.uloga = dostavljac.getUloga();
+    }
 
     public String getUsername() {
         return username;

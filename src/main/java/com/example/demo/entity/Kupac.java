@@ -32,6 +32,10 @@ public class Kupac extends Korisnik{
         this.brojSkupljenihBodova = brojSkupljenihBodova;
     }
 
+    public Kupac(String username, String password) {
+        super(username, password);
+    }
+
     public Korpa getKorpa() {
         return korpa;
     }

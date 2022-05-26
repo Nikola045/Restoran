@@ -26,7 +26,7 @@ public class MenadzerRestController {
     @Autowired
     private PorudzbinaService porudzbinaService;
 
-    @PostMapping("/api/menadzer/login")
+    @PostMapping("/api/menadzer/prijava")
     public ResponseEntity<String> login(@RequestBody LogInDto loginDto, HttpSession session)
     {
         if(loginDto.getUsername().isEmpty() || loginDto.getPassword().isEmpty())
@@ -42,10 +42,10 @@ public class MenadzerRestController {
         }
 
         session.setAttribute("menadzer",logovaniMenadzer);
-        return ResponseEntity.ok("Uspesno logovanje!");
+        return ResponseEntity.ok("Uspesno ulogovan menadzer!");
     }
 
-    @PostMapping("/api/menadzer/logout")
+    @PostMapping("/api/menadzer/odjavi")
     public ResponseEntity logout(HttpSession session)
     {
         Kupac logovaniKupac = (Kupac) session.getAttribute("menadzer");
@@ -56,7 +56,7 @@ public class MenadzerRestController {
         }
 
         session.invalidate();
-        return new ResponseEntity("Menadzer odjavljen!",HttpStatus.OK);
+        return new ResponseEntity("Menadzer uspesno odjavljen iz sistema!",HttpStatus.OK);
     }
 
     @GetMapping("/api/menadzer/porudzbine")

@@ -26,20 +26,20 @@ public class DostavljacRestController {
     @Autowired
     private PorudzbinaService porudzbinaService;
 
-    @PostMapping("api/dostavljac/login")
+    @PostMapping("api/dostavljac/prijava")
     public ResponseEntity<String> login(@RequestBody LogInDto logInDto, HttpSession session){
         if(logInDto.getUsername().isEmpty() || logInDto.getPassword().isEmpty())
-            return new ResponseEntity("Invalid login data", HttpStatus.BAD_REQUEST);
+            return new ResponseEntity("Podaci nisu dobro uneti", HttpStatus.BAD_REQUEST);
 
         Dostavljac loggedDostavljac = dostavljacService.login(logInDto.getUsername(), logInDto.getPassword());
         if (loggedDostavljac == null)
-            return new ResponseEntity<>("User does not exist!", HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>("Korisnik ne postoji u sistemu", HttpStatus.NOT_FOUND);
 
         session.setAttribute("dostavljac", loggedDostavljac);
-        return ResponseEntity.ok("Successfully logged in!");
+        return ResponseEntity.ok("Dostavljac je uspesno prijavljen");
     }
 
-    @GetMapping("/api/dostavljac/pregled-porudzbina-zaduzen")
+    @GetMapping("/api/dostavljac/PregledZaduzenihPorudzbina")
     public ResponseEntity<Set<Porudzbina>> pregledPorudzbina(HttpSession session)
     {
         Dostavljac logovaniDostavljac = (Dostavljac) session.getAttribute("dostavljac");
@@ -56,7 +56,7 @@ public class DostavljacRestController {
         return ResponseEntity.ok(porudzbine);
     }
 
-    @GetMapping("/api/dostavljac/pregled-porudzbina-slobodne")
+    @GetMapping("/api/dostavljac/PregledSlobodnihPorudzbina")
     public ResponseEntity<Set<Porudzbina>> pregledPorudzbinaSlobodne(HttpSession session)
     {
         Dostavljac logovaniDostavljac = (Dostavljac) session.getAttribute("dostavljac");
@@ -73,7 +73,7 @@ public class DostavljacRestController {
         return ResponseEntity.ok(porudzbine);
     }
 
-    @PostMapping("/api/dostavljac/logout")
+    @PostMapping("/api/dostavljac/odjavi")
     public ResponseEntity logout(HttpSession session)
     {
         Dostavljac logovaniDostavljac = (Dostavljac) session.getAttribute("dostavljac");
@@ -84,6 +84,6 @@ public class DostavljacRestController {
         }
 
         session.invalidate();
-        return new ResponseEntity("Dostavljac je odjavljen!",HttpStatus.OK);
+        return new ResponseEntity("Dostavljac je uspesno odjavljen iz sistema!",HttpStatus.OK);
     }
 }
