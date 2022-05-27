@@ -63,6 +63,7 @@ public class RestoranRestController {
         return ResponseEntity.status(HttpStatus.OK).body(restoran);
     }
 
+
     @GetMapping("/api/restoran/pretragaLokacija")
     public ResponseEntity pretraziRestoranPoLokaciji(@RequestParam String adresa, HttpSession session) {
 
