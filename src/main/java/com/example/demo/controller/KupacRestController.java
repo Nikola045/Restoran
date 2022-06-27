@@ -34,7 +34,7 @@ public class KupacRestController {
     @PostMapping("/api/kupac/registracija")
     public String saveKupac(@RequestBody Kupac kupac) {
         this.kupacService.save(kupac);
-        return "Upsesno ste se ulogovali kao novi kupac!";
+        return "Upsesno ste se registrovali kao novi kupac!";
     }
 
     @PostMapping("/api/kupac/prijava")
@@ -81,7 +81,7 @@ public class KupacRestController {
         KupacDto dto = new KupacDto(kupac);
         return ResponseEntity.ok(dto);
     }
-//ne radi**************************************************************************************************************
+//proradilo**************************************************************************************************************
     @PostMapping("/api/kupac/izmeni")
     public ResponseEntity<Kupac> setKupac(HttpSession session, @RequestBody KupacDto kupacDto) {
 
