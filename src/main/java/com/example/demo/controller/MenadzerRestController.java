@@ -4,6 +4,8 @@ import com.example.demo.dto.*;
 import com.example.demo.entity.*;
 import com.example.demo.repository.ArtikalRepository;
 import com.example.demo.repository.MenadzerRepository;
+import com.example.demo.repository.PorudzbinaRepository;
+import com.example.demo.repository.RestoranRepository;
 import com.example.demo.service.ArtikalService;
 import com.example.demo.service.MenadzerService;
 import com.example.demo.service.PorudzbinaService;
@@ -13,8 +15,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
-import java.util.HashMap;
-import java.util.Set;
+import java.util.*;
 
 @RestController
 public class MenadzerRestController {
@@ -27,9 +28,13 @@ public class MenadzerRestController {
 
     @Autowired
     private PorudzbinaService porudzbinaService;
+    @Autowired
+    private PorudzbinaRepository porudzbinaRepository;
 
     @Autowired
     private MenadzerRepository menadzerRepository;
+    @Autowired
+    private RestoranRepository restoranRepository;
 
     @Autowired
     private ArtikalRepository artikalRepository;
@@ -83,23 +88,6 @@ public class MenadzerRestController {
         return ResponseEntity.ok(dto);
     }
 
-//ne radi
-    @GetMapping("/api/menadzer/porudzbine")
-    public ResponseEntity<Set<Porudzbina>> pregledPorudzbina(HttpSession session)
-    {
-        Menadzer menadzer = (Menadzer) session.getAttribute("menadzer");
-
-        if(menadzer==null)
-        {
-            return new ResponseEntity("Menadzer nije prijavljen!",HttpStatus.FORBIDDEN);
-        }
-
-        Set<Porudzbina> porudzbine = porudzbinaService.porudzbineRestorana(menadzer);
-        return ResponseEntity.ok(porudzbine);
-    }
-
-
-    //ne znam da li radi
     @DeleteMapping("/api/menadzer/brisanjeArtikla")
     public ResponseEntity<String> obrisiArtikal(@RequestParam String artikalId,HttpSession session){
         Menadzer loggedMenadzer = (Menadzer) session.getAttribute("menadzer");
@@ -135,25 +123,127 @@ public class MenadzerRestController {
         return ResponseEntity.ok(logovaniMenadzer);
     }
 
-//ne radi
+    @GetMapping("/api/menadzer/porudzbineRestorana")
+    public ResponseEntity<Set<Porudzbina>> getPorudzbineRestorana(HttpSession session) {
+        Menadzer logovaniMenadzer = (Menadzer) session.getAttribute("menadzer");
+
+
+        if (logovaniMenadzer == null) {
+            return new ResponseEntity("Niste ulogovani!", HttpStatus.FORBIDDEN);
+        }
+
+        Restoran restoran = logovaniMenadzer.getZaduzenRestoran();
+
+        List<Porudzbina> porudzbine = porudzbinaService.findAll();
+        Set<Porudzbina> pronadjenePorudzbine = new HashSet<>();
+        for (Porudzbina porudzbinaRestorana : porudzbine) {
+            if (porudzbinaRestorana.getRestoranPoruceno() == restoran)
+            {
+                pronadjenePorudzbine.add(porudzbinaRestorana);
+            }
+
+        }
+        return ResponseEntity.ok(pronadjenePorudzbine);
+    }
+
     @PostMapping("/api/menadzer/DodajArtikal")
-    public ResponseEntity dodajArtikal(@RequestParam ArtikalDto artikalDto, HttpSession session)
+    public ResponseEntity dodajArtikal(@RequestBody ArtikalDto artikalDto, HttpSession session)
     {
         Menadzer logovaniMenadzer = (Menadzer) session.getAttribute("menadzer");
+
+        Restoran restoran = (Restoran) session.getAttribute("restoran");
+
+        Restoran restoran = new Restoran(logovaniMenadzer.getZaduzenRestoran());
+
         Restoran restoran = (Restoran) session.getAttribute("restoran");//ovo nema bas smisla
 
         if(logovaniMenadzer == null) {
             return new ResponseEntity("Samo menazder moze da obavi ovu radnju!",HttpStatus.FORBIDDEN);
         }
-        if(logovaniMenadzer != restoran.getMenadzer()) {
-            return new ResponseEntity("Ovaj menadzer nije zaduzen za ovaj restoran!",HttpStatus.FORBIDDEN);
+        if(restoran==null){
+            return new ResponseEntity("Menadzer nema svoj restoran!",HttpStatus.FORBIDDEN);
         }
 
-        Artikal noviArtikal= artikalService.napraviArtikal(artikalDto.getNazivArtikla(),artikalDto.getCena(),artikalDto.getTipArtikla());
+        Artikal noviArtikal= artikalService.napraviArtikal(logovaniMenadzer,artikalDto.getNazivArtikla(),artikalDto.getCena(),artikalDto.getTipArtikla());
 
-        artikalRepository.save(noviArtikal);
+
 
         return ResponseEntity.ok(noviArtikal);
     }
 
+    @PostMapping("/api/menadzer/izmeniArtikal")
+    public ResponseEntity<Artikal> setArtikal(@RequestParam String nazivArtikla, HttpSession session, @RequestBody ArtikalDto artikalDto) {
+
+        Menadzer logovaniMenadzer = (Menadzer) session.getAttribute("menadzer");
+
+        if(logovaniMenadzer==null)
+        {
+            return new ResponseEntity("Niste ulogovani!",HttpStatus.FORBIDDEN);
+        }
+
+        Artikal artikalIzmena = menadzerService.izabraniArtikal(nazivArtikla,logovaniMenadzer);
+
+        artikalIzmena.setNazivArtikla(artikalDto.getNazivArtikla() == null ? artikalIzmena.getNazivArtikla() : artikalDto.getNazivArtikla());
+        artikalIzmena.setCena(artikalDto.getCena() == 0 ? artikalIzmena.getCena() : artikalDto.getCena());
+        artikalIzmena.setTipArtikla(artikalDto.getTipArtikla() == null ? artikalIzmena.getTipArtikla() : artikalDto.getTipArtikla());
+        artikalRepository.save(artikalIzmena);
+        try {
+            System.out.println("Uspesna izmena.");
+        } catch (Exception e) {
+            System.out.println("Neuspesna izmena.");
+        }
+
+        return ResponseEntity.ok(artikalIzmena);
+    }
+
+//ne radi
+    @PostMapping("/api/menadzer/Upripremi")
+    public ResponseEntity<Porudzbina> setUPripremi(HttpSession session) {
+
+        Menadzer logovaniMenadzer = (Menadzer) session.getAttribute("menadzer");
+
+        if(logovaniMenadzer==null)
+        {
+            return new ResponseEntity("Niste ulogovani!",HttpStatus.FORBIDDEN);
+        }
+
+        Set<Porudzbina> porudzbine = new HashSet<Porudzbina>(porudzbinaRepository.findAll());
+        for(Porudzbina porudzbina : porudzbine)
+        {
+            if(porudzbina.getRestoranPoruceno().equals(logovaniMenadzer.getZaduzenRestoran())){
+                if(porudzbina.getTrenutnoStanjePorudzbine().equals(Status.OBRADA))
+                {
+                    porudzbina.setTrenutnoStanjePorudzbine(Status.U_PRIPREMI);
+                    return ResponseEntity.ok(porudzbina);
+                }
+            }
+
+        }
+        return null;
+    }
+//ne radi
+    @PostMapping("/api/menadzer/UCekaDostavljaca")
+    public ResponseEntity<Porudzbina> setUCekaDostavljaca(HttpSession session) {
+
+        Menadzer logovaniMenadzer = (Menadzer) session.getAttribute("menadzer");
+
+        if(logovaniMenadzer==null)
+        {
+            return new ResponseEntity("Niste ulogovani!",HttpStatus.FORBIDDEN);
+        }
+
+        Set<Porudzbina> porudzbine = new HashSet<Porudzbina>(porudzbinaRepository.findAll());
+        for(Porudzbina porudzbina : porudzbine)
+        {
+            if(porudzbina.getRestoranPoruceno().equals(logovaniMenadzer.getZaduzenRestoran())){
+                if(porudzbina.getTrenutnoStanjePorudzbine().equals(Status.U_PRIPREMI))
+                {
+                    porudzbina.setTrenutnoStanjePorudzbine(Status.CEKA_DOSTAVLJACA);
+                    return ResponseEntity.ok(porudzbina);
+                }
+            }
+
+        }
+        return null;
+    }
 }
