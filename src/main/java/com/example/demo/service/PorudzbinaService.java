@@ -1,6 +1,7 @@
 package com.example.demo.service;
 
 import com.example.demo.entity.*;
+import com.example.demo.repository.DostavljacRepository;
 import com.example.demo.repository.KupacRepository;
 import com.example.demo.repository.PorudzbinaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Service
@@ -18,6 +20,9 @@ public class PorudzbinaService {
 
     @Autowired
     private KupacRepository kupacRepository;
+
+    @Autowired
+    private DostavljacRepository dostavljacRepository;
 
 
     public Set<Porudzbina> pregledajPorudzbineSlobodne(Status status)
@@ -48,6 +53,11 @@ public class PorudzbinaService {
         return vrati;
     }
 
+    public void dodajPorudzbinu(Porudzbina porudzbina)
+    {
+        porudzbinaRepository.save(porudzbina);
+    }
+
     public void Poruci(Porudzbina porudzbina)
     {
         porudzbinaRepository.save(porudzbina);
@@ -58,15 +68,14 @@ public class PorudzbinaService {
         Porudzbina porudzbina = new Porudzbina();
         Korpa korpa = kupac.getKorpa();
 
-        porudzbina.setPoruceniArtikli(korpa.getArtikli());
+        porudzbina.setPoruceniArtikli(korpa.getPoruceniArtikli());
         porudzbina.setVremePoruzbine(new Date());
         porudzbina.setKupacIme(kupac.getIme());
         porudzbina.setTrenutnoStanjePorudzbine(Status.OBRADA);
         porudzbina.setRestoranPoruceno(restoran);
 
 
-        int brBod = (int) korpa.getUkupnaCena();
-        kupac.setBrojSkupljenihBodova((brBod/1000)*133);
+        kupac.dodajBodove(korpa.ukupnaCena());
 
         porudzbinaRepository.save(porudzbina);
 
@@ -81,7 +90,7 @@ public class PorudzbinaService {
     }
 
 
-
-
-
+    public List<Porudzbina> findAll() {
+        return porudzbinaRepository.findAll();
+    }
 }

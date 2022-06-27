@@ -7,7 +7,6 @@ import java.util.Set;
 @Entity
 public class TipKupac {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idTipKupca;
     @Column
     private VrstaPotrosaca ime;

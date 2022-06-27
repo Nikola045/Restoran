@@ -6,7 +6,6 @@ import java.util.Date;
 @Entity
 public class Lokacija {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column
     private String adresa;

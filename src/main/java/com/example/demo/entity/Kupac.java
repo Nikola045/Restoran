@@ -36,13 +36,7 @@ public class Kupac extends Korisnik{
         super(username, password);
     }
 
-    public Korpa getKorpa() {
-        return korpa;
-    }
 
-    public void setKorpa(Korpa korpa) {
-        this.korpa = korpa;
-    }
 
     @OneToOne(mappedBy = "kupac",fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JsonIgnore
@@ -50,6 +44,14 @@ public class Kupac extends Korisnik{
 
     public Kupac() {
 
+    }
+
+    public Korpa getKorpa() {
+        return korpa;
+    }
+
+    public void setKorpa(Korpa korpa) {
+        this.korpa = korpa;
     }
 
     public int getBrojSkupljenihBodova() {
@@ -82,5 +84,10 @@ public class Kupac extends Korisnik{
 
     public void setKomentari(Set<Komentar> komentari) {
         this.komentari = komentari;
+    }
+
+    public void dodajBodove(int brojBodova)
+    {
+        this.brojSkupljenihBodova=this.brojSkupljenihBodova+(brojBodova/1000*133);
     }
 }

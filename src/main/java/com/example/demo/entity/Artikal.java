@@ -12,8 +12,6 @@ import java.util.Set;
 public class Artikal {
 
     @Id
-    private String idArtikal;
-    @Column
     private String nazivArtikla;
     @Column
     private int cena;
@@ -36,8 +34,7 @@ public class Artikal {
     @ManyToOne
     private Korpa korpa;
 
-    public Artikal(String idArtikal, String nazivArtikla, int cena, String opis, int kolicina) {
-        this.idArtikal = idArtikal;
+    public Artikal( String nazivArtikla, int cena, String opis, int kolicina) {
         this.nazivArtikla = nazivArtikla;
         this.cena = cena;
         this.opis = opis;
@@ -46,14 +43,6 @@ public class Artikal {
 
     public Artikal() {
 
-    }
-
-    public String getIdArtikal() {
-        return idArtikal;
-    }
-
-    public void setIdArtikal(String idArtikal) {
-        this.idArtikal = idArtikal;
     }
 
     public String getNazivArtikla() {

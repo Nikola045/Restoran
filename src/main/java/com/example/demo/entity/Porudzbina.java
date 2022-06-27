@@ -12,7 +12,6 @@ import java.util.Date;
 @Entity
 public class Porudzbina {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idPorudzbine;
     @Column
     private Date vremePoruzbine = new Date();
@@ -31,12 +30,12 @@ public class Porudzbina {
     private Dostavljac dostavljac;
 
     @OneToMany(mappedBy = "porudzbina", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<Artikal> poruceniArtikli = new HashSet<>();
+    private Set<PoruceniArtikli> poruceniArtikli = new HashSet<>();
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Kupac kupac;
 
-    @OneToOne
+    @ManyToOne
     private Restoran restoranPoruceno;
 
     public Porudzbina(Long idPorudzbine, Date vremePoruzbine, int cenaPorudzbine, Status trenutnoStanjePorudzbine) {
@@ -45,6 +44,7 @@ public class Porudzbina {
         this.cenaPorudzbine = cenaPorudzbine;
         this.trenutnoStanjePorudzbine = trenutnoStanjePorudzbine;
     }
+
 
     public Porudzbina() {
 
@@ -90,11 +90,11 @@ public class Porudzbina {
         this.dostavljac = dostavljac;
     }
 
-    public Set<Artikal> getPoruceniArtikli() {
+    public Set<PoruceniArtikli> getPoruceniArtikli() {
         return poruceniArtikli;
     }
 
-    public void setPoruceniArtikli(Set<Artikal> poruceniArtikli) {
+    public void setPoruceniArtikli(Set<PoruceniArtikli> poruceniArtikli) {
         this.poruceniArtikli = poruceniArtikli;
     }
 

@@ -88,7 +88,6 @@ public class RestoranRestController {
         for (Restoran r : restoranList)
             if (Objects.equals(naziv, r.getNaziv()))
             return r;
-
         return null;
     }
 
