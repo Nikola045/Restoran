@@ -2,9 +2,12 @@ package com.example.demo.dto;
 
 import com.example.demo.entity.Dostavljac;
 import com.example.demo.entity.Dostavljac;
+import com.example.demo.entity.Porudzbina;
 import com.example.demo.entity.Uloga;
 
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 public class DostavljacDto {
     protected String username;
@@ -14,8 +17,9 @@ public class DostavljacDto {
     protected String pol;
     protected Date datumRodjenja = new Date();
     protected Uloga uloga;
+    private Set<Porudzbina> porudzbine = new HashSet<>();
 
-    public DostavljacDto(String username, String password, String ime, String prezime, String pol, Date datumRodjenja, Uloga uloga) {
+    public DostavljacDto(String username, String password, String ime, String prezime, String pol, Date datumRodjenja, Uloga uloga, Set<Porudzbina> porudzbine) {
         this.username = username;
         this.password = password;
         this.ime = ime;
@@ -23,6 +27,7 @@ public class DostavljacDto {
         this.pol = pol;
         this.datumRodjenja = datumRodjenja;
         this.uloga = uloga;
+        this.porudzbine = porudzbine;
     }
 
     public DostavljacDto() {
@@ -94,6 +99,14 @@ public class DostavljacDto {
 
     public void setUloga(Uloga uloga) {
         this.uloga = uloga;
+    }
+
+    public Set<Porudzbina> getPorudzbine() {
+        return porudzbine;
+    }
+
+    public void setPorudzbine(Set<Porudzbina> porudzbine) {
+        this.porudzbine = porudzbine;
     }
 }
 

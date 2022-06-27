@@ -1,8 +1,6 @@
 package com.example.demo.controller;
 
-import com.example.demo.dto.DostavljacDto;
-import com.example.demo.dto.KupacDto;
-import com.example.demo.dto.LogInDto;
+import com.example.demo.dto.*;
 import com.example.demo.dto.DostavljacDto;
 import com.example.demo.entity.*;
 import com.example.demo.service.DostavljacService;
@@ -16,6 +14,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @RestController
@@ -27,8 +28,8 @@ public class DostavljacRestController {
     private PorudzbinaService porudzbinaService;
 
     @PostMapping("api/dostavljac/prijava")
-    public ResponseEntity<String> login(@RequestBody LogInDto logInDto, HttpSession session){
-        if(logInDto.getUsername().isEmpty() || logInDto.getPassword().isEmpty())
+    public ResponseEntity<String> login(@RequestBody LogInDto logInDto, HttpSession session) {
+        if (logInDto.getUsername().isEmpty() || logInDto.getPassword().isEmpty())
             return new ResponseEntity("Podaci nisu dobro uneti", HttpStatus.BAD_REQUEST);
 
         Dostavljac loggedDostavljac = dostavljacService.login(logInDto.getUsername(), logInDto.getPassword());
@@ -40,27 +41,24 @@ public class DostavljacRestController {
     }
 
     @PostMapping("/api/dostavljac/odjavi")
-    public ResponseEntity logout(HttpSession session)
-    {
+    public ResponseEntity logout(HttpSession session) {
         Dostavljac logovaniDostavljac = (Dostavljac) session.getAttribute("dostavljac");
 
-        if(logovaniDostavljac == null)
-        {
-            return new ResponseEntity("Dostavljac nije logovan!",HttpStatus.FORBIDDEN);
+        if (logovaniDostavljac == null) {
+            return new ResponseEntity("Dostavljac nije logovan!", HttpStatus.FORBIDDEN);
         }
 
         session.invalidate();
-        return new ResponseEntity("Dostavljac je uspesno odjavljen iz sistema!",HttpStatus.OK);
+        return new ResponseEntity("Dostavljac je uspesno odjavljen iz sistema!", HttpStatus.OK);
     }
 
     @GetMapping("/api/dostavljac/profil")
-    public ResponseEntity<DostavljacDto> getDostavljac(HttpSession session){
-        Dostavljac logovaniDostavljac= (Dostavljac) session.getAttribute("dostavljac");
+    public ResponseEntity<DostavljacDto> getDostavljac(HttpSession session) {
+        Dostavljac logovaniDostavljac = (Dostavljac) session.getAttribute("dostavljac");
 
 
-        if(logovaniDostavljac==null)
-        {
-            return new ResponseEntity("Niste ulogovani!",HttpStatus.FORBIDDEN);
+        if (logovaniDostavljac == null) {
+            return new ResponseEntity("Niste ulogovani!", HttpStatus.FORBIDDEN);
         }
 
         Dostavljac dostavljac = dostavljacService.findOne(logovaniDostavljac.getUsername());
@@ -68,14 +66,14 @@ public class DostavljacRestController {
         return ResponseEntity.ok(dto);
     }
 
+
     @PostMapping("/api/dostavljac/izmeni")
     public ResponseEntity<Dostavljac> setDostavljac(HttpSession session, @RequestBody DostavljacDto dostavljacDto) {
 
         Dostavljac logovaniDostavljac = (Dostavljac) session.getAttribute("dostavljac");
 
-        if(logovaniDostavljac==null)
-        {
-            return new ResponseEntity("Niste ulogovani!",HttpStatus.FORBIDDEN);
+        if (logovaniDostavljac == null) {
+            return new ResponseEntity("Niste ulogovani!", HttpStatus.FORBIDDEN);
         }
 
         logovaniDostavljac.setUsername(dostavljacDto.getUsername() == null ? logovaniDostavljac.getUsername() : dostavljacDto.getUsername());
@@ -92,4 +90,49 @@ public class DostavljacRestController {
         return ResponseEntity.ok(logovaniDostavljac);
     }
 
+
+    @GetMapping("/api/dostavljac/porudzbinaCeka")
+    public ResponseEntity<List<Porudzbina>> getPorudzbineCeka(HttpSession session) {
+        Dostavljac logovaniDostavljac = (Dostavljac) session.getAttribute("dostavljac");
+
+
+        if (logovaniDostavljac == null) {
+            return new ResponseEntity("Niste ulogovani!", HttpStatus.FORBIDDEN);
+        }
+        List<Porudzbina> porudzbine = porudzbinaService.findAll();
+        List<Porudzbina> pronadjenePorudzbine = new ArrayList<>();
+        for (Porudzbina porudzbinaCeka : porudzbine) {
+            if (porudzbinaCeka.getTrenutnoStanjePorudzbine() == Status.CEKA_DOSTAVLJACA)
+                {
+                    pronadjenePorudzbine.add(porudzbinaCeka);
+                }
+
+        }
+        return ResponseEntity.ok(pronadjenePorudzbine);
+    }
+
+    @GetMapping("/api/dostavljac/porudzbinaZaduzen")
+    public ResponseEntity<List<Porudzbina>> getPorudzbineZaduzen(HttpSession session) {
+        Dostavljac logovaniDostavljac = (Dostavljac) session.getAttribute("dostavljac");
+
+
+        if (logovaniDostavljac == null) {
+            return new ResponseEntity("Niste ulogovani!", HttpStatus.FORBIDDEN);
+        }
+        List<Porudzbina> porudzbine = porudzbinaService.findAll();
+        List<Porudzbina> pronadjenePorudzbine = new ArrayList<>();
+        for (Porudzbina porudzbinaZaduzen : porudzbine) {
+            if (porudzbinaZaduzen.getDostavljac()==logovaniDostavljac)
+            {
+                pronadjenePorudzbine.add(porudzbinaZaduzen);
+            }
+
+        }
+        return ResponseEntity.ok(pronadjenePorudzbine);
+    }
+
+    //promeni u transport status
+    //promeni u dostavljeno status
 }
+
+

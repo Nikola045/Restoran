@@ -20,9 +20,9 @@ public class Restoran {
     @OneToOne
     private Menadzer menadzer;
 
-    @OneToOne(mappedBy = "restoranPoruceno")
-    @JsonIgnore
-    private Porudzbina porudzbina;
+    @OneToMany(mappedBy = "restoranPoruceno")
+
+    private Set<Porudzbina> porudzbine;
 
     @OneToMany(mappedBy = "restoran", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Set<Komentar> komentari = new HashSet<>();
@@ -86,12 +86,12 @@ public class Restoran {
         this.menadzer = menadzer;
     }
 
-    public Porudzbina getPorudzbina() {
-        return porudzbina;
+    public Set<Porudzbina> getPorudzbine() {
+        return porudzbine;
     }
 
-    public void setPorudzbina(Porudzbina porudzbina) {
-        this.porudzbina = porudzbina;
+    public void setPorudzbine(Set<Porudzbina> porudzbina) {
+        this.porudzbine = porudzbina;
     }
 
     public Set<Artikal> getArtikli() {

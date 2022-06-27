@@ -5,7 +5,6 @@ import javax.persistence.*;
 @Entity
 public class Komentar {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idKomentar;
     @Column
     private String tekstKomentara;

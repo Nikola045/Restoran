@@ -8,41 +8,63 @@ import java.util.Set;
 
 @JsonIgnoreProperties(value = {"hibernateLazyInitializer","handler"})
 @Entity
-public class Korpa {
+public class Korpa
+{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private String id;
+    private Long id;
 
     //
     @OneToOne
     private Kupac kupac;
 
-    @OneToMany(mappedBy = "korpa",fetch = FetchType.EAGER /*cascade = CascadeType.MERGE*/)
-    private Set<Artikal> artikli = new HashSet<>();
+    @OneToMany(mappedBy = "korpa",fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
+    private Set<PoruceniArtikli> poruceniArtikli = new HashSet<>();
 
-    @Column
-    private double ukupnaCena;
-
-    public Korpa(Kupac kupac, Set<Artikal> artikli) {
+    public Korpa(Kupac kupac, Set<PoruceniArtikli> poruceniArtikli) {
         this.kupac = kupac;
-        this.artikli = artikli;
-    }
-
-    public Korpa(Kupac kupac, Set<Artikal> artikli, double ukupnaCena) {
-        this.kupac = kupac;
-        this.artikli = artikli;
-        this.ukupnaCena = ukupnaCena;
+        this.poruceniArtikli = poruceniArtikli;
     }
 
     public Korpa() {
+    }
+
+
+    public int ukupnaCena()
+    {
+        double ukupnacena=0;
+        for (PoruceniArtikli pa:poruceniArtikli)
+        {
+            ukupnacena+=pa.getUkupnaCena();
+        }
+
+        return (int)ukupnacena;
+    }
+
+    public void azuriraj(int kolicina,Artikal a)
+    {
+        for (PoruceniArtikli por:poruceniArtikli)
+        {
+            if(a==por.getArtikal())
+            {
+                int kol = por.getKolicina();
+                por.setKolicina(kol+kolicina);
+            }
+        }
 
     }
 
-    public String getId() {
+    public void dodajPoruceneArtikle(PoruceniArtikli pa)
+    {
+        poruceniArtikli.add(pa);
+    }
+
+
+    public Long getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -54,19 +76,11 @@ public class Korpa {
         this.kupac = kupac;
     }
 
-    public Set<Artikal> getArtikli() {
-        return artikli;
+    public Set<PoruceniArtikli> getPoruceniArtikli() {
+        return poruceniArtikli;
     }
 
-    public void setArtikli(Set<Artikal> artikli) {
-        this.artikli = artikli;
-    }
-
-    public double getUkupnaCena() {
-        return ukupnaCena;
-    }
-
-    public void setUkupnaCena(double ukupnaCena) {
-        this.ukupnaCena = ukupnaCena;
+    public void setPoruceniArtikli(Set<PoruceniArtikli> poruceniArtikli) {
+        this.poruceniArtikli = poruceniArtikli;
     }
 }

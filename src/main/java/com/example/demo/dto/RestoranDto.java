@@ -9,18 +9,19 @@ import java.util.Set;
 
 public class RestoranDto {
 
+
     private String naziv;
     private String tipRestorana;
     private Menadzer menadzer;
-    private Porudzbina porudzbina;
+    private Set<Porudzbina> porudzbine;
     private Set<Artikal> artikli = new HashSet<>();
     private Lokacija lokacija;
 
-    public RestoranDto(String naziv, String tipRestorana, Menadzer menadzer, Porudzbina porudzbina, Set<Artikal> artikli, Lokacija lokacija) {
+    public RestoranDto(String naziv, String tipRestorana, Menadzer menadzer, Set<Porudzbina> porudzbine, Set<Artikal> artikli, Lokacija lokacija) {
         this.naziv = naziv;
         this.tipRestorana = tipRestorana;
         this.menadzer = menadzer;
-        this.porudzbina = porudzbina;
+        this.porudzbine = porudzbine;
         this.artikli = artikli;
         this.lokacija = lokacija;
     }
@@ -33,7 +34,7 @@ public class RestoranDto {
         this.naziv = restoran.getNaziv();
         this.tipRestorana = restoran.getTipRestorana();
         this.menadzer = restoran.getMenadzer();
-        this.porudzbina = restoran.getPorudzbina();
+        this.porudzbine = restoran.getPorudzbine();
         this.artikli = restoran.getArtikli();
         this.lokacija = restoran.getLokacija();
     }
@@ -63,12 +64,12 @@ public class RestoranDto {
         this.menadzer = menadzer;
     }
 
-    public Porudzbina getPorudzbina() {
-        return porudzbina;
+    public Set<Porudzbina> getPorudzbina() {
+        return porudzbine;
     }
 
     public void setPorudzbina(Porudzbina porudzbina) {
-        this.porudzbina = porudzbina;
+        this.porudzbine = porudzbine;
     }
 
     public Set<Artikal> getArtikli() {

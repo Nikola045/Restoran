@@ -12,6 +12,7 @@ public class ArtikalDto {
     private String nazivArtikla;
     private int cena;
     private String tipArtikla;
+    private int kolicina;
     private Restoran restoran;
 
 
@@ -58,5 +59,13 @@ public class ArtikalDto {
 
     public void setRestoran(Restoran restoran) {
         this.restoran = restoran;
+    }
+
+    public int getKolicina() {
+        return kolicina;
+    }
+
+    public void setKolicina(int kolicina) {
+        this.kolicina = kolicina;
     }
 }
