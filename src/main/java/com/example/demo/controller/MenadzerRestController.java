@@ -150,11 +150,12 @@ public class MenadzerRestController {
     public ResponseEntity dodajArtikal(@RequestBody ArtikalDto artikalDto, HttpSession session)
     {
         Menadzer logovaniMenadzer = (Menadzer) session.getAttribute("menadzer");
-<<<<<<< Updated upstream
+
         Restoran restoran = (Restoran) session.getAttribute("restoran");
-=======
+
         Restoran restoran = new Restoran(logovaniMenadzer.getZaduzenRestoran());
->>>>>>> Stashed changes
+
+        Restoran restoran = (Restoran) session.getAttribute("restoran");//ovo nema bas smisla
 
         if(logovaniMenadzer == null) {
             return new ResponseEntity("Samo menazder moze da obavi ovu radnju!",HttpStatus.FORBIDDEN);
