@@ -151,11 +151,8 @@ public class MenadzerRestController {
     {
         Menadzer logovaniMenadzer = (Menadzer) session.getAttribute("menadzer");
 
-        Restoran restoran = (Restoran) session.getAttribute("restoran");
-
         Restoran restoran = new Restoran(logovaniMenadzer.getZaduzenRestoran());
 
-        Restoran restoran = (Restoran) session.getAttribute("restoran");//ovo nema bas smisla
 
         if(logovaniMenadzer == null) {
             return new ResponseEntity("Samo menazder moze da obavi ovu radnju!",HttpStatus.FORBIDDEN);
