@@ -193,9 +193,8 @@ public class MenadzerRestController {
         return ResponseEntity.ok(artikalIzmena);
     }
 
-//ne radi
     @PostMapping("/api/menadzer/Upripremi")
-    public ResponseEntity<Porudzbina> setUPripremi(HttpSession session) {
+    public ResponseEntity<Porudzbina> setUPripremi(@RequestParam UUID idPorudzbina, HttpSession session) {
 
         Menadzer logovaniMenadzer = (Menadzer) session.getAttribute("menadzer");
 
@@ -204,43 +203,26 @@ public class MenadzerRestController {
             return new ResponseEntity("Niste ulogovani!",HttpStatus.FORBIDDEN);
         }
 
-        Set<Porudzbina> porudzbine = new HashSet<Porudzbina>(porudzbinaRepository.findAll());
-        for(Porudzbina porudzbina : porudzbine)
-        {
-            if(porudzbina.getRestoranPoruceno().equals(logovaniMenadzer.getZaduzenRestoran())){
-                if(porudzbina.getTrenutnoStanjePorudzbine().equals(Status.OBRADA))
-                {
-                    porudzbina.setTrenutnoStanjePorudzbine(Status.U_PRIPREMI);
-                    return ResponseEntity.ok(porudzbina);
-                }
-            }
-
-        }
-        return null;
+        Porudzbina porudzbina = porudzbinaRepository.getById(idPorudzbina);
+        porudzbina.setTrenutnoStanjePorudzbine(Status.U_PRIPREMI);
+        porudzbinaRepository.save(porudzbina);
+        return ResponseEntity.ok(porudzbina);
     }
-//ne radi
-    @PostMapping("/api/menadzer/UCekaDostavljaca")
-    public ResponseEntity<Porudzbina> setUCekaDostavljaca(HttpSession session) {
 
-        Menadzer logovaniMenadzer = (Menadzer) session.getAttribute("menadzer");
+@PostMapping("/api/menadzer/UCekaDostavljaca")
+public ResponseEntity<Porudzbina> setUCekaDostavljaca(@RequestParam UUID idPorudzbina, HttpSession session) {
 
-        if(logovaniMenadzer==null)
-        {
-            return new ResponseEntity("Niste ulogovani!",HttpStatus.FORBIDDEN);
-        }
+    Menadzer logovaniMenadzer = (Menadzer) session.getAttribute("menadzer");
 
-        Set<Porudzbina> porudzbine = new HashSet<Porudzbina>(porudzbinaRepository.findAll());
-        for(Porudzbina porudzbina : porudzbine)
-        {
-            if(porudzbina.getRestoranPoruceno().equals(logovaniMenadzer.getZaduzenRestoran())){
-                if(porudzbina.getTrenutnoStanjePorudzbine().equals(Status.U_PRIPREMI))
-                {
-                    porudzbina.setTrenutnoStanjePorudzbine(Status.CEKA_DOSTAVLJACA);
-                    return ResponseEntity.ok(porudzbina);
-                }
-            }
-
-        }
-        return null;
+    if(logovaniMenadzer==null)
+    {
+        return new ResponseEntity("Niste ulogovani!",HttpStatus.FORBIDDEN);
     }
+
+    Porudzbina porudzbina = porudzbinaRepository.getById(idPorudzbina);
+    porudzbina.setTrenutnoStanjePorudzbine(Status.CEKA_DOSTAVLJACA);
+    porudzbinaRepository.save(porudzbina);
+    return ResponseEntity.ok(porudzbina);
+}
+
 }

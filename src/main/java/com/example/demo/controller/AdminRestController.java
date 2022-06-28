@@ -91,7 +91,7 @@ public class AdminRestController {
     }
 
     @PutMapping("/api/admin/zaduziRestoran/{id}")
-    public ResponseEntity<MenadzerDto> addRestoran(@PathVariable Long id, HttpSession session) {
+    public ResponseEntity<MenadzerDto> addRestoran(@PathVariable String nazivRestorana, HttpSession session) {
         Menadzer loggedMenadzer = (Menadzer) session.getAttribute("menadzer");
         if (loggedMenadzer == null) {
             System.out.println("Nema sesije");
@@ -99,7 +99,7 @@ public class AdminRestController {
         } else {
             System.out.println(loggedMenadzer);
         }
-        Menadzer updatedMenadzer = menadzerService.postaviRestoran(loggedMenadzer.getUsername(), id);
+        Menadzer updatedMenadzer = menadzerService.postaviRestoran(loggedMenadzer.getUsername(), nazivRestorana);
         if (updatedMenadzer == null)
             return ResponseEntity.notFound().build();
         return ResponseEntity.ok(new MenadzerDto(updatedMenadzer));

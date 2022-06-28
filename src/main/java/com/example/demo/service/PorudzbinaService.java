@@ -73,6 +73,7 @@ public class PorudzbinaService {
         porudzbina.setKupacIme(kupac.getIme());
         porudzbina.setTrenutnoStanjePorudzbine(Status.OBRADA);
         porudzbina.setRestoranPoruceno(restoran);
+        porudzbina.setKupac(kupac);
 
 
         kupac.dodajBodove(korpa.ukupnaCena());
