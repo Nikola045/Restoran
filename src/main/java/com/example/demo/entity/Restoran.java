@@ -11,8 +11,6 @@ import java.util.Set;
 @Entity
 public class Restoran {
     @Id
-    private Long id;
-    @Column
     private String naziv;
     @Column
     private String tipRestorana;
@@ -20,9 +18,9 @@ public class Restoran {
     @OneToOne
     private Menadzer menadzer;
 
-    @OneToOne(mappedBy = "restoranPoruceno")
-    @JsonIgnore
-    private Porudzbina porudzbina;
+    @OneToMany(mappedBy = "restoranPoruceno")
+
+    private Set<Porudzbina> porudzbine;
 
     @OneToMany(mappedBy = "restoran", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Set<Komentar> komentari = new HashSet<>();
@@ -34,8 +32,7 @@ public class Restoran {
     @OneToOne(mappedBy = "restoran")
     private Lokacija lokacija;
 
-    public Restoran(Long id, String naziv, String tipRestorana) {
-        this.id = id;
+    public Restoran(String naziv, String tipRestorana) {
         this.naziv = naziv;
         this.tipRestorana = tipRestorana;
     }
@@ -54,13 +51,6 @@ public class Restoran {
         this.naziv = odabrani.getNaziv();
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public String getNaziv() {
         return naziv;
@@ -86,12 +76,12 @@ public class Restoran {
         this.menadzer = menadzer;
     }
 
-    public Porudzbina getPorudzbina() {
-        return porudzbina;
+    public Set<Porudzbina> getPorudzbine() {
+        return porudzbine;
     }
 
-    public void setPorudzbina(Porudzbina porudzbina) {
-        this.porudzbina = porudzbina;
+    public void setPorudzbine(Set<Porudzbina> porudzbina) {
+        this.porudzbine = porudzbina;
     }
 
     public Set<Artikal> getArtikli() {

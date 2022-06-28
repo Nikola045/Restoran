@@ -39,10 +39,6 @@ public class RestoranService {
         return "Uspesno dodat restoran!";
     }
 
-    public Restoran findById(Long projectId) {
-        return restoranRepository.getById(projectId);
-    }
-
     public List<Restoran> findAll(){
         return restoranRepository.findAll();
     }
