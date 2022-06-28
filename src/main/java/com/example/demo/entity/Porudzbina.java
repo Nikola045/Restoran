@@ -7,12 +7,14 @@ import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.Date;
+import java.util.UUID;
 
 @JsonIgnoreProperties(value = {"hibernateLazyInitializer","handler"})
 @Entity
 public class Porudzbina {
     @Id
-    private Long idPorudzbine;
+    @GeneratedValue(generator = "UUID")
+    private UUID idPorudzbine;
     @Column
     private Date vremePoruzbine = new Date();
     @Column
@@ -32,14 +34,16 @@ public class Porudzbina {
     @OneToMany(mappedBy = "porudzbina", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<PoruceniArtikli> poruceniArtikli = new HashSet<>();
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToOne
+    @JsonIgnore
     private Kupac kupac;
 
     @ManyToOne
+    @JsonIgnore
     private Restoran restoranPoruceno;
 
-    public Porudzbina(Long idPorudzbine, Date vremePoruzbine, int cenaPorudzbine, Status trenutnoStanjePorudzbine) {
-        this.idPorudzbine = idPorudzbine;
+
+    public Porudzbina(Date vremePoruzbine, int cenaPorudzbine, Status trenutnoStanjePorudzbine) {
         this.vremePoruzbine = vremePoruzbine;
         this.cenaPorudzbine = cenaPorudzbine;
         this.trenutnoStanjePorudzbine = trenutnoStanjePorudzbine;
@@ -50,11 +54,11 @@ public class Porudzbina {
 
     }
 
-    public Long getIdPorudzbine() {
+    public UUID getIdPorudzbine() {
         return idPorudzbine;
     }
 
-    public void setIdPorudzbine(Long idPorudzbine) {
+    public void setIdPorudzbine(UUID idPorudzbine) {
         this.idPorudzbine = idPorudzbine;
     }
 

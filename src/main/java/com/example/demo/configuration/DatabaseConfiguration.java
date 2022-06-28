@@ -129,15 +129,15 @@ public class DatabaseConfiguration
         menadzerRepository.save(menadzer2);
 
 
-        Restoran restoran1 = new Restoran(1L,"KodRiste","Narodni");
+        Restoran restoran1 = new Restoran("KodRiste","Narodni");
         restoranRepository.save(restoran1);
 
         Lokacija lokacija1 = new Lokacija(234L,"BoguIzaNogu",23,14);
         lokacijaRepository.save(lokacija1);
 
-        Porudzbina porudzbina1 = new Porudzbina(1L,datum1,23, Status.OBRADA);
+        Porudzbina porudzbina1 = new Porudzbina(datum1,23, Status.OBRADA);
         porudzbinaRepository.save(porudzbina1);
-        Porudzbina porudzbina2 = new Porudzbina(2L,datum1,50, Status.CEKA_DOSTAVLJACA);
+        Porudzbina porudzbina2 = new Porudzbina(datum1,50, Status.CEKA_DOSTAVLJACA);
         porudzbinaRepository.save(porudzbina2);
 
 

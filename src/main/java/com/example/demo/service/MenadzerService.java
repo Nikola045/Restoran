@@ -53,9 +53,9 @@ public class MenadzerService {
         return menadzerRepository.findAll();
     }
 
-    public Menadzer postaviRestoran(String username, Long Id) {
+    public Menadzer postaviRestoran(String username, String nazivRestorana) {
         Menadzer menadzer = menadzerRepository.getByUsername(username);
-        Restoran restoran = restoranService.findById(Id);
+        Restoran restoran = restoranService.nadjiPoImenu(nazivRestorana);
         if (restoran == null)
             return null;
         menadzer.setZaduzenRestoran(restoran);
