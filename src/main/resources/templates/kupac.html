@@ -1,0 +1,79 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+    <title>Kupac funkcije</title>
+    <meta charset="utf-8"/>
+</head>
+<body>
+<h1>Operacije koje može da vrši kupac</h1>
+<h2></h2>
+<h2>Pregled profila</h2>
+<div class="container">
+    <table id="kupci">
+        <tr>
+            <th>Ime</th>
+            <th>Prezime</th>
+            <th>Username</th>
+            <th>Password</th>
+            <th>Pol</th>
+            <th>Datum rodjenja</th>
+            <th>Uloga</th>
+            <th>Broj skupljenih bodova</th>
+            <th>Korpa</th>
+            <th>Porudzbine</th>
+            <th>Tip</th>
+            <th>Komentari</th>
+        </tr>
+    </table>
+</div>
+
+<h2>Izmena podataka</h2>
+<form id="izmenaPodatakaZaKupca">
+    <label for="username">Username:</label>
+    <input id="username" type="text"/><br>
+    <label for="password">Password:</label>
+    <input id="password" type="text"/><br>
+    <label for="firstName">Ime:</label>
+    <input id="firstName" type="text"/><br>
+    <label for="lastName">Prezime:</label>
+    <input id="lastName" type="text"/><br>
+    <br>
+    <input type="submit" value="Izmeni">
+</form>
+
+<h2>Pregled porudzbina</h2>
+<div class="container">
+    <table id="porudzbine_kupac">
+        <tr>
+            <th>ID porudzbine</th>
+            <th>Vreme</th>
+            <th>Cena</th>
+            <th>Trenutno stanje</th>
+            <th>Ime kupca</th>
+            <th>Kupac</th>
+            <th>Dostavljac</th>
+            <th>Restoran</th>
+        </tr>
+    </table>
+</div><br>
+
+<h2>Dodaj u korpu</h2>
+
+<h2>Pregled korpe</h2>
+<div class="container">
+    <table id="pregled_korpe" >
+        <tr>
+            <th>ID porudzbine</th>
+            <th>Kupac</th>
+            <th>Poruceni artikli</th>
+        </tr>
+    </table>
+</div><br>
+
+<h2>Poruci</h2>
+
+<h2>Komentar</h2>
+
+<input type="submit" value="Odjavi">
+</body>
+</html>
