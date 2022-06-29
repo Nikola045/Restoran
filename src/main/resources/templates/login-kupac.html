@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Login-kupac</title>
+</head>
+<body>
+<form th:action="@{/login}" th:object="${login}" method="post">
+    <label for="username">Username:</label>
+    <input id="username" type="text" th:field="*{username}"/>
+    <label for="password">Password:</label>
+    <input id="password" type="text" th:field="*{password}"/>
+    <input type="submit">
+    <a type="button" href="index.html" class="btn">Nazad na galvnu stranu</a>
+</form>
+</body>
+</html>

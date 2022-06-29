@@ -90,7 +90,7 @@ public class AdminRestController {
         return new ResponseEntity("Restoran je uspesno dodat!", HttpStatus.OK);
     }
 
-    @PutMapping("/api/admin/zaduziRestoran/{id}")
+    @PutMapping("/api/admin/zaduziRestoran/{nazivRestorana}")
     public ResponseEntity<MenadzerDto> addRestoran(@PathVariable String nazivRestorana, HttpSession session) {
         Menadzer loggedMenadzer = (Menadzer) session.getAttribute("menadzer");
         if (loggedMenadzer == null) {

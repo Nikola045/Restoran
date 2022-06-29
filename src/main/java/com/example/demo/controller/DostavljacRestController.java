@@ -3,21 +3,16 @@ package com.example.demo.controller;
 import com.example.demo.dto.*;
 import com.example.demo.dto.DostavljacDto;
 import com.example.demo.entity.*;
+import com.example.demo.repository.PorudzbinaRepository;
 import com.example.demo.service.DostavljacService;
 import com.example.demo.service.PorudzbinaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @RestController
 public class DostavljacRestController {
@@ -26,6 +21,8 @@ public class DostavljacRestController {
     private DostavljacService dostavljacService;
     @Autowired
     private PorudzbinaService porudzbinaService;
+    @Autowired
+    private PorudzbinaRepository porudzbinaRepository;
 
     @PostMapping("api/dostavljac/prijava")
     public ResponseEntity<String> login(@RequestBody LogInDto logInDto, HttpSession session) {
@@ -131,8 +128,38 @@ public class DostavljacRestController {
         return ResponseEntity.ok(pronadjenePorudzbine);
     }
 
-    //promeni u transport status
-    //promeni u dostavljeno status
+    @PostMapping("/api/dostavljac/UTransportu")
+    public ResponseEntity<Porudzbina> setUTransportu(@RequestParam UUID idPorudzbina, HttpSession session) {
+
+        Dostavljac logovaniDostavljac = (Dostavljac) session.getAttribute("dostavljac");
+
+        if(logovaniDostavljac==null)
+        {
+            return new ResponseEntity("Niste ulogovani!",HttpStatus.FORBIDDEN);
+        }
+
+        Porudzbina porudzbina = porudzbinaRepository.getById(idPorudzbina);
+        porudzbina.setTrenutnoStanjePorudzbine(Status.U_TRANSPORTU);
+        porudzbina.setDostavljac(logovaniDostavljac);
+        porudzbinaRepository.save(porudzbina);
+        return ResponseEntity.ok(porudzbina);
+    }
+    @PostMapping("/api/dostavljac/UDostavljena")
+    public ResponseEntity<Porudzbina> setDostavljena(@RequestParam UUID idPorudzbina, HttpSession session) {
+
+        Dostavljac logovaniDostavljac = (Dostavljac) session.getAttribute("dostavljac");
+
+        if(logovaniDostavljac==null)
+        {
+            return new ResponseEntity("Niste ulogovani!",HttpStatus.FORBIDDEN);
+        }
+
+        Porudzbina porudzbina = porudzbinaRepository.getById(idPorudzbina);
+        porudzbina.setTrenutnoStanjePorudzbine(Status.DOSTAVLJENA);
+        porudzbina.setDostavljac(logovaniDostavljac);
+        porudzbinaRepository.save(porudzbina);
+        return ResponseEntity.ok(porudzbina);
+    }
 }
 
 

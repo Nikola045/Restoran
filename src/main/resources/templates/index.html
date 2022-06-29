@@ -1,13 +1,16 @@
 <!DOCTYPE HTML>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
 <head>
   <title>Home Page</title>
   <meta charset="utf-8"/>
 </head>
 <body>
 <h1>Welcome</h1>
-<h2>This is home page</h2>
-<a th:href="${'/employees'}">See all employees</a>
-<button onclick="location.href = '/logout'">Log out</button>
+
+<a type="button" href="korisnici.html" class="btn">Prikazi sve korisnike</a>
+<a type="button" href="login-menadzer.html" class="btn">Prijava za menadzere</a>
+<a type="button" href="login-dostavljac.html" class="btn">Prijava za dostavljace</a>
+<a type="button" href="login-kupac.html" class="btn">Prijava za kupce</a>
+<a type="button" href="login-admin.html" class="btn">Prjava za admina</a>
 </body>
 </html>
