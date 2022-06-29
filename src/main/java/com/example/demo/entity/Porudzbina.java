@@ -28,7 +28,8 @@ public class Porudzbina {
     @Column
     private String kupacIme;
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToOne
+    @JsonIgnore
     private Dostavljac dostavljac;
 
     @OneToMany(mappedBy = "porudzbina", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
