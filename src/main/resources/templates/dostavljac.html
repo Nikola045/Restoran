@@ -1,0 +1,68 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+    <title>Dostavljač funkcije</title>
+    <meta charset="utf-8"/>
+</head>
+<body>
+<h1>Operacije koje može da vrši dostavljač</h1>
+<h2>Pregled profila</h2>
+<div class="container">
+    <table id="dostacljaci">
+        <tr>
+            <th>Ime</th>
+            <th>Prezime</th>
+            <th>Username</th>
+            <th>Password</th>
+            <th>Pol</th>
+            <th>Datum rodjenja</th>
+            <th>Uloga</th>
+            <th>Porudzbine</th>
+        </tr>
+    </table>
+</div>
+
+<h2>Izmena podataka</h2>
+<form id="izmenaPodatakaZaDostavljaca">
+    <label for="username">Username:</label>
+    <input id="username" type="text"/><br>
+    <label for="password">Password:</label>
+    <input id="password" type="text"/><br>
+    <label for="firstName">Ime:</label>
+    <input id="firstName" type="text"/><br>
+    <label for="lastName">Prezime:</label>
+    <input id="lastName" type="text"/><br>
+    <br>
+    <input type="submit" value="Izmeni">
+</form>
+
+<h2>Porudzbina koja se ceka</h2>
+<div class="container">
+    <table id="porudzbine_koje_ceka">
+        <tr>
+            <th>ID porudzbine</th>
+            <th>Vreme</th>
+            <th>Cena</th>
+            <th>Trenutno stanje</th>
+            <th>Ime kupca</th>
+            <th>Kupac</th>
+            <th>Dostavljac</th>
+            <th>Restoran</th>
+        </tr>
+    </table>
+</div><br>
+
+<h2>U transportu</h2>
+<label for="promeniUTransportu">ID porudzbine</label>
+<input id="promeniUTransportu" type="text"/><br>
+<input type="submit" value="Izmeni">
+
+<h2>Dostavljena</h2>
+<label for="promeniUDostavljena">ID porudzbine</label>
+<input id="promeniUDostavljena" type="text"/><br>
+<input type="submit" value="Izmeni">
+<br><br><br>
+
+<input type="submit" value="Odjavi">
+</body>
+</html>
