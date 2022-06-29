@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Funkcije</title>
+</head>
+<body>
+<h1>Operacije koje moze da vrsi admin</h1>
+
+<h1>Dodaj Menadzera</h1>
+<form id="dodajMenadzera">
+    <label for="usernameM">Username:</label>
+    <input id="usernameM" type="text"/><br>
+    <label for="passwordM">Password:</label>
+    <input id="passwordM" type="text"/><br>
+    <label for="firstNameM">Ime:</label>
+    <input id="firstNameM" type="text"/><br>
+    <label for="lastNameM">Prezime:</label>
+    <input id="lastNameM" type="text"/><br>
+    <input type="submit" value="Dodaj Menadzera">
+</form>
+
+<h1>Dodaj Dostavljaca</h1>
+<form id="dodajDostavljaca">
+    <label for="usernameD">Username:</label>
+    <input id="usernameD" type="text"/><br>
+    <label for="passwordD">Password:</label>
+    <input id="passwordD" type="text"/><br>
+    <label for="firstNameD">Ime:</label>
+    <input id="firstNameD" type="text"/><br>
+    <label for="lastNameD">Prezime:</label>
+    <input id="lastNameD" type="text"/><br>
+    <input type="submit" value="Dodaj Dostavljaca">
+</form>
+
+<h1>Pregled svih korisnika</h1>
+<div class="container">
+    <table id="pregledSvihKorisnika">
+        <tr>
+            <th>Ime</th>
+            <th>Prezime</th>
+            <th>Pol</th>
+            <th>Datum rodjenja</th>
+            <th>Uloga</th>
+        </tr>
+    </table>
+</div>
+
+<h1>Dodaj Restoran</h1>
+<form id="dodajRestoran">
+    <label for="id">id:</label>
+    <input id="id" type="text"/><br>
+    <label for="nazivRestorana">Naziv:</label>
+    <input id="nazivRestorana" type="text"/><br>
+    <label for="tipRestorana">Tip Restorana:</label>
+    <input id="tipRestorana" type="text"/><br>
+    <input type="submit" value="Dodaj Dostavljaca">
+</form>
+
+<h1>Zaduzi restroan</h1>
+<label for="nazivRestoranaZ">Naziv:</label>
+<input id="nazivRestoranaZ" type="text"/><br>
+<input type="submit" value="Zaduzi">
+
+<h1>Oobrisi restoran</h1>
+<label for="nazivRestoranaD">Naziv:</label>
+<input id="nazivRestoranaD" type="text"/><br>
+<input type="submit" value="Obrisi">
+
+<h1>Pretrazi po imenu</h1>
+<label for="ime">Ime Korisnika:</label>
+<input id="ime" type="text"/><br>
+<input type="submit" value="Pretrazi">
+
+<h1>Pretrazi po prezimenu</h1>
+<label for="prezime">Prezime Korisnika:</label>
+<input id="prezime" type="text"/><br>
+<input type="submit" value="Pretrazi">
+
+<h1>Pretrazi po username</h1>
+<label for="username">Username Korisnika:</label>
+<input id="username" type="text"/><br>
+<input type="submit" value="Pretrazi">
+
+<input type="submit" value="Odjavi">
+</body>
+</html>

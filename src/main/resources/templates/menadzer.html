@@ -1,0 +1,91 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+    <title>Menadzer funkcije</title>
+    <meta charset="utf-8"/>
+</head>
+<body>
+<h1>Operacije koje moze da vrsi menadzer</h1>
+<h2>Pregled profila</h2>
+<div class="container">
+    <table id="menadzer_profil">
+        <tr>
+            <th>Ime</th>
+            <th>Prezime</th>
+            <th>Pol</th>
+            <th>Datum rodjenja</th>
+            <th>Uloga</th>
+            <th>Restoran</th>
+        </tr>
+    </table>
+</div>
+
+<h2>Izmena podataka</h2>
+<form id="izmenaPodatakaZaMenadzera">
+    <label for="username">Username:</label>
+    <input id="username" type="text"/><br>
+    <label for="password">Password:</label>
+    <input id="password" type="text"/><br>
+    <label for="firstName">Ime:</label>
+    <input id="firstName" type="text"/><br>
+    <label for="lastName">Prezime:</label>
+    <input id="lastName" type="text"/><br>
+    <input type="submit" value="Izmeni">
+</form>
+
+<h2>Kreiraj novi artikal</h2>
+<form id="napraviNoviArtikal">
+    <label for="nazivArtikla">Naziv Artikla:</label>
+    <input id="nazivArtikla" type="text"/><br>
+    <label for="cena">Cena:</label>
+    <input id="cena" type="text"/><br>
+    <label for="tipArtikla">Tip Artikla:</label>
+    <input id="tipArtikla" type="text"/><br>
+    <input type="submit" value="Dodaj Artikal">
+</form>
+
+<h2>Promeni informacije o artiklu</h2>
+<form id="izmeniArtikal">
+    <label for="izmeniNazivArtikla">Novi Naziv Artikla:</label>
+    <input id="izmeniNazivArtikla" type="text"/><br>
+    <label for="izmeniCena">Nova Cena:</label>
+    <input id="izmeniCena" type="text"/><br>
+    <label for="izmeniTipArtikla">Novi Tip Artikla:</label>
+    <input id="izmeniTipArtikla" type="text"/><br>
+    <input type="submit" value="Dodaj Artikal">
+</form>
+
+<h2>Obrisi artikal</h2>
+<label for="idArtikla">idArtikla:</label>
+<input id="idArtikla" type="text"/><br>
+<input type="submit" value="Obrisi">
+
+<h2>Pregled porudzbina za svoj restoran</h2>
+<div class="container">
+    <table id="porudzbine_koje_ceka">
+        <tr>
+            <th>ID porudzbine</th>
+            <th>Vreme</th>
+            <th>Cena</th>
+            <th>Trenutno stanje</th>
+            <th>Ime kupca</th>
+            <th>Kupac</th>
+            <th>Dostavljac</th>
+            <th>Restoran</th>
+        </tr>
+    </table>
+</div><br>
+
+<h2>Promena statusa porudzbine u pripremi</h2>
+<label for="promeniUPripremi">idPorudzbine:</label>
+<input id="promeniUPripremi" type="text"/><br>
+<input type="submit" value="Obrisi">
+
+<h2>Promena statusa porudzbine u ceka dostavljaca
+</h2><label for="promeniUCekaDostavljaca">idPorudzbine:</label>
+<input id="promeniUCekaDostavljaca" type="text"/><br>
+<input type="submit" value="Obrisi">
+
+<input type="submit" value="Odjavi">
+</body>
+</html>

@@ -7,10 +7,31 @@
 <body>
 <h1>Welcome</h1>
 
-<a type="button" href="korisnici.html" class="btn">Prikazi sve korisnike</a>
-<a type="button" href="login-menadzer.html" class="btn">Prijava za menadzere</a>
-<a type="button" href="login-dostavljac.html" class="btn">Prijava za dostavljace</a>
-<a type="button" href="login-kupac.html" class="btn">Prijava za kupce</a>
-<a type="button" href="login-admin.html" class="btn">Prjava za admina</a>
+<a type="button" href="korisnici.html" class="btn">Prikazi sve korisnike</a><br>
+<a type="button" href="login-menadzer.html" class="btn">Prijava za menadzere</a><br>
+<a type="button" href="login-dostavljac.html" class="btn">Prijava za dostavljace</a><br>
+<a type="button" href="login-kupac.html" class="btn">Prijava za kupce</a><br>
+<a type="button" href="login-admin.html" class="btn">Prjava za admina</a><br>
+<a type="button" href="regiztracija.html" class="btn">Registracija</a><br>
+
+
+<h2>Priakz svih restorana</h2>
+<div class="container">
+  <table id="pregledSvihRestorana">
+    <tr>
+      <th>Naziv</th>
+      <th>Tip Restorana</th>
+      <th>Menadzer</th>
+      <th>Artikli</th>
+      <th>Lokacija</th>
+    </tr>
+  </table>
+</div>
+
+<h2>Pretrazi po nazivu</h2>
+<label for="nazivRestorana">Naziv Restorana:</label>
+<input id="nazivRestorana" type="text"/><br>
+<input type="submit" value="Pretrazi">
+
 </body>
 </html>
