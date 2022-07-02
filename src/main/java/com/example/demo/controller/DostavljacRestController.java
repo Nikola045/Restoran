@@ -68,7 +68,10 @@ public class DostavljacRestController {
     }
 
 
-    @PostMapping("/api/dostavljac/izmeni")
+    @PostMapping(value="/api/dostavljac/izmeni",
+            consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE
+    )
     public ResponseEntity<Dostavljac> setDostavljac(HttpSession session, @RequestBody DostavljacDto dostavljacDto) {
 
         Dostavljac logovaniDostavljac = (Dostavljac) session.getAttribute("dostavljac");
