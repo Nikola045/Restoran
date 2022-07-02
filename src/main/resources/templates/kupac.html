@@ -1,10 +1,9 @@
 <!DOCTYPE HTML>
-<html lang="en">
+<html lang="en" xmlns="http://www.w3.org/1999/html">
 <head>
     <title>Kupac funkcije</title>
     <meta charset="utf-8"/>
 </head>
-<body>
 <h1>Operacije koje može da vrši kupac</h1>
 <h2></h2>
 <h2>Pregled profila</h2>
@@ -58,22 +57,39 @@
 </div><br>
 
 <h2>Dodaj u korpu</h2>
+<form id="dodajUKorpu">
+    <label for="nazivArtikla">Naziv artikla:</label>
+    <input id="nazivArtikla" type="text"/><br>
+    <label for="kolicina">Kolicina:</label>
+    <input id="kolicina" type="text"/><br>
+    <label for="restoran">Restoran iz kog ste porucili:</label>
+    <input id="restoran" type="text"/><br>
+    <br>
+    <input type="submit" value="Dodaj u korpu">
+</form>
 
-<h2>Pregled korpe</h2>
-<div class="container">
-    <table id="pregled_korpe" >
-        <tr>
-            <th>ID porudzbine</th>
-            <th>Kupac</th>
-            <th>Poruceni artikli</th>
-        </tr>
-    </table>
-</div><br>
+    <h2>Pregled korpe</h2>
+    <div class="container">
+        <table id="pregled_korpe" >
+            <tr>
+                <th>ID porudzbine</th>
+                <th>Kupac</th>
+                <th>Poruceni artikli</th>
+            </tr>
+        </table>
+    </div><br>
 
-<h2>Poruci</h2>
+    <h2>Poruci</h2>
+    <label for="nazivRestorana">Naziv Restorana:</label>
+    <input id="nazivRestorana" type="text"/><br>
+    <input type="submit" value="Poruci"/>
 
-<h2>Komentar</h2>
+    <h2>Komentar</h2>
+    <label for="komentar">Unesite komentar za restoran iz kog ste porucili hranu:</label>
+    <input id="komentar" type="text"/><br>
+    <input type="submit" value="Objavi"/><br><br>
 
-<a href="index.html"> <input type="submit" value="Odjavi"></a>
+    <a href="index.html"> <input type="submit" value="Odjavi"></a>
+
 </body>
 </html>
