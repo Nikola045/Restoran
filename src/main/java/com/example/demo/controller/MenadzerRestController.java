@@ -103,7 +103,10 @@ public class MenadzerRestController {
 
     }
 
-    @PostMapping("/api/menadzer/izmeni")
+    @PostMapping(value="/api/menadzer/izmeni",
+            consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE
+    )
     public ResponseEntity<Menadzer> setMenadzer(HttpSession session, @RequestBody MenadzerDto menadzerDto) {
 
         Menadzer logovaniMenadzer = (Menadzer) session.getAttribute("menadzer");
