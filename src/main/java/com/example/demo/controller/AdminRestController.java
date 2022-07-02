@@ -5,6 +5,7 @@ import com.example.demo.entity.*;
 import com.example.demo.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -38,7 +39,10 @@ public class AdminRestController {
         return "Hello from api!";
     }
 
-    @PostMapping("api/admin/prijava")
+    @PostMapping(value="/api/admin/prijava",
+            consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE
+    )
     public ResponseEntity<String> login(@RequestBody LogInDto logInDto, HttpSession session) {
         if (logInDto.getUsername().isEmpty() || logInDto.getPassword().isEmpty())
             return new ResponseEntity("Invalid login data", HttpStatus.BAD_REQUEST);

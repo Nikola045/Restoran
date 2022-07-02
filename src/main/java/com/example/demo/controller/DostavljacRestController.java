@@ -8,6 +8,7 @@ import com.example.demo.service.DostavljacService;
 import com.example.demo.service.PorudzbinaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,7 +25,10 @@ public class DostavljacRestController {
     @Autowired
     private PorudzbinaRepository porudzbinaRepository;
 
-    @PostMapping("api/dostavljac/prijava")
+    @PostMapping(value="/api/dostavljac/prijava",
+            consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE
+    )
     public ResponseEntity<String> login(@RequestBody LogInDto logInDto, HttpSession session) {
         if (logInDto.getUsername().isEmpty() || logInDto.getPassword().isEmpty())
             return new ResponseEntity("Podaci nisu dobro uneti", HttpStatus.BAD_REQUEST);
