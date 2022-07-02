@@ -3,20 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <title>Registracija</title>
+    <script src="/js/jquery.min.js"></script>
+    <script type="text/javascript" src="/js/registracija.js"></script>
 </head>
 <body>
 <h1>Registracija novog kupca</h1>
 
-<form id="registracija">
-    <label for="lastName">Username:</label>
+<form id="reg">
+    <label for="username">Username:</label>
     <input id="username" type="text"/><br>
-    <label for="lastName">Password:</label>
+    <label for="password">Password:</label>
     <input id="password" type="text"/><br>
     <label for="firstName">Ime:</label>
     <input id="firstName" type="text"/><br>
     <label for="lastName">Prezime:</label>
     <input id="lastName" type="text"/><br>
-    <a href="kupac.html"><input type="submit" value="Registruj se"></a>
+    <input type="submit" value="Registruj se">
+    <a type="button" href="index.html" class="btn">nazad</a><br>
 </form>
 </body>
 </html>
