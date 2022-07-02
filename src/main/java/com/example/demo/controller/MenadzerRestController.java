@@ -77,7 +77,9 @@ public class MenadzerRestController {
         return new ResponseEntity("Menadzer uspesno odjavljen iz sistema!",HttpStatus.OK);
     }
 
-    @GetMapping("/api/menadzer/profil")
+    @GetMapping(value="/api/menadzer/profil",
+           produces = MediaType.APPLICATION_JSON_VALUE
+    )
     public ResponseEntity<MenadzerDto> getMenadzer(HttpSession session){
         Menadzer logovaniMenadzer= (Menadzer) session.getAttribute("menadzer");
 
