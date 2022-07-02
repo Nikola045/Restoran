@@ -84,7 +84,10 @@ public class KupacRestController {
         return new ResponseEntity("Uspesno odjavljen kupac iz sistema", HttpStatus.OK);
     }
 
-    @GetMapping("/api/kupac/profil")
+    @GetMapping(value="/api/kupac/profil",
+            consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE
+    )
     public ResponseEntity<KupacDto> getKupac(HttpSession session){
         Kupac logovaniKupac = (Kupac) session.getAttribute("kupac");
 
