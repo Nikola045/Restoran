@@ -44,7 +44,7 @@ public class MenadzerRestController {
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE
     )
-    public ResponseEntity<String> login(@RequestBody LogInDto loginDto, HttpSession session)
+    public ResponseEntity<LogInDto> login(@RequestBody LogInDto loginDto, HttpSession session)
     {
         if(loginDto.getUsername().isEmpty() || loginDto.getPassword().isEmpty())
         {
@@ -59,7 +59,7 @@ public class MenadzerRestController {
         }
 
         session.setAttribute("menadzer",logovaniMenadzer);
-        return ResponseEntity.ok("Uspesno ulogovan menadzer!");
+        return new ResponseEntity<>(loginDto,HttpStatus.OK);
     }
 
 
