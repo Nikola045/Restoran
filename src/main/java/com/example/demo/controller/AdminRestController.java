@@ -43,16 +43,16 @@ public class AdminRestController {
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE
     )
-    public ResponseEntity<String> login(@RequestBody LogInDto logInDto, HttpSession session) {
+    public ResponseEntity<LogInDto> login(@RequestBody LogInDto logInDto, HttpSession session) {
         if (logInDto.getUsername().isEmpty() || logInDto.getPassword().isEmpty())
             return new ResponseEntity("Invalid login data", HttpStatus.BAD_REQUEST);
 
         Admin loggedAdmin = adminService.login(logInDto.getUsername(), logInDto.getPassword());
         if (loggedAdmin == null)
-            return new ResponseEntity<>("User does not exist!", HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 
         session.setAttribute("admin", loggedAdmin);
-        return ResponseEntity.ok("Admine uspesno ste izvrsili prijavu");
+        return new ResponseEntity<>(logInDto,HttpStatus.OK);
     }
 
     @PostMapping("/api/admin/DodajMenadzera")
