@@ -9,6 +9,7 @@ import com.example.demo.repository.RestoranRepository;
 import com.example.demo.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -40,14 +41,21 @@ public class KupacRestController {
     @Autowired
     private KorpaService korpaService;
 
-    @PostMapping("/api/kupac/registracija")
-    public String saveKupac(@RequestBody Kupac kupac) {
+    @PostMapping(value = "/api/kupac/registracija",
+            consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE
+    )
+    public ResponseEntity<Kupac> saveKupac(@RequestBody Kupac kupac)
+    {
         this.kupacService.save(kupac);
-        return "Upsesno ste se registrovali kao novi kupac!";
+        return new ResponseEntity<>(kupac,HttpStatus.OK);
     }
 
-    @PostMapping("/api/kupac/prijava")
-    public ResponseEntity<String> login(@RequestBody LogInDto loginDto, HttpSession session)
+    @PostMapping(value="/api/kupac/prijava",
+            consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE
+    )
+    public ResponseEntity<LogInDto> login(@RequestBody LogInDto loginDto, HttpSession session)
     {
         if(loginDto.getUsername().isEmpty() || loginDto.getPassword().isEmpty())
         {
@@ -62,7 +70,7 @@ public class KupacRestController {
         }
 
         session.setAttribute("kupac",logovaniKupac);
-        return ResponseEntity.ok("Kupac je uspesno prijavljen!");
+        return new ResponseEntity<>(loginDto,HttpStatus.OK);
     }
 
     @PostMapping("api/kupac/odajvi")
@@ -91,7 +99,10 @@ public class KupacRestController {
         return ResponseEntity.ok(dto);
     }
 
-    @PostMapping("/api/kupac/izmeni")
+    @PostMapping(value="/api/kupac/izmeni",
+            consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE
+    )
     public ResponseEntity<Kupac> setKupac(HttpSession session, @RequestBody KupacDto kupacDto) {
 
         Kupac logovaniKupac = (Kupac) session.getAttribute("kupac");
@@ -156,7 +167,7 @@ public class KupacRestController {
         korpaService.dodajUKorpu(logovaniKupac,korpaDto);
         return ResponseEntity.ok(korpaDto);
     }
-//proveri
+
     @GetMapping("/api/kupac/pregled-korpe")
     public ResponseEntity<Korpa> pregledKorpe(HttpSession session)
     {
@@ -171,7 +182,7 @@ public class KupacRestController {
         return ResponseEntity.ok(korpa);
 
     }
-//ne radi
+
     @PostMapping("/api/kupac/poruci")
     public ResponseEntity<Porudzbina> poruciIzRestorana(@RequestParam String nazivRestorana, HttpSession session)
     {
