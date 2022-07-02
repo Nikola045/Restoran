@@ -26,3 +26,15 @@ $(document).on("submit","#izmenaPodatakaZaDostavljaca",function (event){
         }
     );
 });
+
+function formToJson1(user,pass,im,prez)
+{
+    return JSON.stringify(
+        {
+            "username":user,
+            "password":pass,
+            "ime":im,
+            "prezime":prez
+        }
+    );
+}
