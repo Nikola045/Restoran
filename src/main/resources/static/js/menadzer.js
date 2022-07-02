@@ -26,7 +26,47 @@ $(document).on("submit","#izmenaPodatakaZaMenadzera",function (event){
         }
     );
 });
+function formToJson1(user,pass,im,prez)
+{
+    return JSON.stringify(
+        {
+            "username":user,
+            "password":pass,
+            "ime":im,
+            "prezime":prez
+        }
+    );
+}
 
+$(document).on("submit","#reg",function (event){
+    event.preventDefault();
+
+    var nazivArtikla = $("#nazivArtikla").val();
+    var cena = $("#cena").val();
+    var ime = $("#ime").val();
+    var prezime = $("#prezime").val();
+
+    var noviKorisnik = formToJson2(username,password,ime,prezime);
+
+    $.ajax(
+        {
+            type:"POST",
+            url:"http://localhost:8080/api/kupac/registracija",
+            dataType:"json",
+            contentType:"application/json",
+            data:noviKorisnik,
+            success:function()
+            {
+                alert(username + " se uspesno registrovao/la!");
+                window.location.href="kupac.html";
+            },
+            error:function (data)
+            {
+                alert("Greska prilikom registracije!");
+            }
+        }
+    );
+});
 function formToJson1(user,pass,im,prez)
 {
     return JSON.stringify(

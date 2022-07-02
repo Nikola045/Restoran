@@ -85,7 +85,6 @@ public class KupacRestController {
     }
 
     @GetMapping(value="/api/kupac/profil",
-            consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE
     )
     public ResponseEntity<KupacDto> getKupac(HttpSession session){
@@ -147,7 +146,9 @@ public class KupacRestController {
     }
 
 
-    @PostMapping("/api/kupac/restoran/dodaj-u-korpu")
+    @PostMapping(value="/api/kupac/restoran/dodaj-u-korpu",
+            produces = MediaType.APPLICATION_JSON_VALUE
+    )
     public ResponseEntity<KorpaDto> dodajUKorpu(@RequestBody KorpaDto korpaDto, HttpSession session)
     {
         Kupac logovaniKupac = (Kupac) session.getAttribute("kupac");
@@ -168,10 +169,12 @@ public class KupacRestController {
         }
 
         korpaService.dodajUKorpu(logovaniKupac,korpaDto);
-        return ResponseEntity.ok(korpaDto);
+        return new ResponseEntity<>(korpaDto,HttpStatus.OK);
     }
 
-    @GetMapping("/api/kupac/pregled-korpe")
+    @GetMapping(value="/api/kupac/pregled-korpe",
+            produces = MediaType.APPLICATION_JSON_VALUE
+    )
     public ResponseEntity<Korpa> pregledKorpe(HttpSession session)
     {
         Kupac logovaniKupac = (Kupac) session.getAttribute("kupac");

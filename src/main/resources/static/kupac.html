@@ -10,9 +10,9 @@
 <h1>Operacije koje može da vrši kupac</h1>
 <h2></h2>
 <h2>Pregled profila</h2>
-<form id="kupacProfil">
+
     <table id="kupac">
-        <tr>
+
             <th>Ime</th>
             <th>Prezime</th>
             <th>Username</th>
@@ -20,14 +20,13 @@
             <th>Pol</th>
             <th>Datum rodjenja</th>
             <th>Uloga</th>
-            <th>Porudzbine</th>
-        </tr>
+
     </table>
-    <button>Prikazi profil</button>
-</form>
+ <button type="button" id="kupacProfil">Prikazi profil</button>
+
 
 <h2>Izmena podataka</h2>
-<form id="izmenaPodatakaZaKupca">
+
     <label for="username">Username:</label>
     <input id="username" type="text"/><br>
     <label for="password">Password:</label>
@@ -36,58 +35,52 @@
     <input id="firstName" type="text"/><br>
     <label for="lastName">Prezime:</label>
     <input id="lastName" type="text"/><br>
-    <br>
-    <input type="submit" value="Izmeni">
-</form>
+<button type="button" id="izmeniPodatkeZaKupca">Izmeni</button>
+
 
 <h2>Pregled porudzbina</h2>
 <div class="container">
     <table id="porudzbine_kupac">
-        <tr>
-            <th>ID porudzbine</th>
-            <th>Vreme</th>
+
+            <th>Vreme porudzbine</th>
             <th>Cena</th>
             <th>Trenutno stanje</th>
-            <th>Ime kupca</th>
-            <th>Kupac</th>
-            <th>Dostavljac</th>
-            <th>Restoran</th>
-        </tr>
+
     </table>
+    <button type="button" id="pregledPorudzbina">Pregledaj</button>
 </div><br>
 
 <h2>Dodaj u korpu</h2>
-<form id="dodajUKorpu">
+
     <label for="nazivArtikla">Naziv artikla:</label>
     <input id="nazivArtikla" type="text"/><br>
     <label for="kolicina">Kolicina:</label>
     <input id="kolicina" type="text"/><br>
     <label for="restoran">Restoran iz kog ste porucili:</label>
     <input id="restoran" type="text"/><br>
-    <br>
-    <input type="submit" value="Dodaj u korpu">
-</form>
+<button type="button" id="dodajUKorpu">Dodaj</button>
 
     <h2>Pregled korpe</h2>
-    <div class="container">
+
         <table id="pregled_korpe" >
-            <tr>
+
                 <th>ID porudzbine</th>
                 <th>Kupac</th>
                 <th>Poruceni artikli</th>
-            </tr>
+
         </table>
-    </div><br>
+        <button type="button" id="pregledKorpe">Pregled</button>
+    <br>
 
     <h2>Poruci</h2>
     <label for="nazivRestorana">Naziv Restorana:</label>
     <input id="nazivRestorana" type="text"/><br>
-    <input type="submit" value="Poruci"/>
+<button type="button" id="poruci"></button>
 
     <h2>Komentar</h2>
     <label for="komentar">Unesite komentar za restoran iz kog ste porucili hranu:</label>
     <input id="komentar" type="text"/><br>
-    <input type="submit" value="Objavi"/><br><br>
+    <button type="submit" id="Objavi">Objavi</button>
 
     <a href="index.html"> <input type="submit" value="Odjavi"></a>
 
