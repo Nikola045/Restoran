@@ -53,7 +53,9 @@ public class DostavljacRestController {
         return new ResponseEntity("Dostavljac je uspesno odjavljen iz sistema!", HttpStatus.OK);
     }
 
-    @GetMapping("/api/dostavljac/profil")
+    @GetMapping(value="/api/dostavljac/profil",
+            produces = MediaType.APPLICATION_JSON_VALUE
+    )
     public ResponseEntity<DostavljacDto> getDostavljac(HttpSession session) {
         Dostavljac logovaniDostavljac = (Dostavljac) session.getAttribute("dostavljac");
 
