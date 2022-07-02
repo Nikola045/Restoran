@@ -29,16 +29,16 @@ public class DostavljacRestController {
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE
     )
-    public ResponseEntity<String> login(@RequestBody LogInDto logInDto, HttpSession session) {
+    public ResponseEntity<LogInDto> login(@RequestBody LogInDto logInDto, HttpSession session) {
         if (logInDto.getUsername().isEmpty() || logInDto.getPassword().isEmpty())
             return new ResponseEntity("Podaci nisu dobro uneti", HttpStatus.BAD_REQUEST);
 
         Dostavljac loggedDostavljac = dostavljacService.login(logInDto.getUsername(), logInDto.getPassword());
         if (loggedDostavljac == null)
-            return new ResponseEntity<>("Korisnik ne postoji u sistemu", HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 
         session.setAttribute("dostavljac", loggedDostavljac);
-        return ResponseEntity.ok("Dostavljac je uspesno prijavljen");
+        return new ResponseEntity<>(logInDto,HttpStatus.OK);
     }
 
     @PostMapping("/api/dostavljac/odjavi")
